@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="ru.asmelnikov.android.shopper.presentation.category.CategoryFragment"
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_addNewCategorySheet"
+            app:destination="@id/addNewCategorySheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/addNewCategorySheet"
+        android:name="ru.asmelnikov.android.shopper.presentation.sheet_dialogs.AddNewCategorySheet"
+        android:label="AddNewCategorySheet" >
+        <action
+            android:id="@+id/action_addNewCategorySheet_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </dialog>
+</navigation>
