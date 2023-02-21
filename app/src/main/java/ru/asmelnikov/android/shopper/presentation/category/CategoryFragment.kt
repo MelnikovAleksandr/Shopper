@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
@@ -47,7 +50,39 @@ class CategoryFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        ItemTouchHelper(itemTouchHelperCallback).apply {
+            attachToRecyclerView(recycler_view)
+        }
+
     }
+
+    val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+    ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val category = categoryAdapter.differ.currentList[position]
+            viewModel.deleteCategory(category)
+            view?.let {
+                Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
+                    setAction("Undo") {
+                        viewModel.insertCategory(category)
+                    }
+                    show()
+                }
+            }
+        }
+    }
+
 
     private fun initAdapter() {
         categoryAdapter = CategoryAdapter()

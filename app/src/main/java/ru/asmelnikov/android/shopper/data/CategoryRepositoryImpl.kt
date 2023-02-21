@@ -14,4 +14,8 @@ class CategoryRepositoryImpl(
     override fun getCategoryList(): Flow<List<Category>> {
         return categoryDao.getCategoryList()
     }
+
+    override suspend fun deleteCategory(category: Category) {
+        categoryDao.deleteCategory(category)
+    }
 }
