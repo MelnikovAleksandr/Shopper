@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_category.view.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.domain.model.Category
 
-class CategoryAdapter :
+class CategoryAdapter(private val categoryActionListener: CategoryActionListener) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -37,6 +37,9 @@ class CategoryAdapter :
         val category = differ.currentList[position]
         holder.itemView.apply {
             category_item_name.text = category.name
+        }
+        holder.itemView.setOnClickListener {
+            categoryActionListener.onItemProductsList(category)
         }
     }
 

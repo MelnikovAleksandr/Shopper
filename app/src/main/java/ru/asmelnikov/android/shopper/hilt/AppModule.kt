@@ -8,12 +8,18 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.asmelnikov.android.shopper.data.CategoryRepositoryImpl
+import ru.asmelnikov.android.shopper.data.ItemsRepositoryImpl
 import ru.asmelnikov.android.shopper.data.ShopperDataBase
 import ru.asmelnikov.android.shopper.domain.repository.CategoryRepository
+import ru.asmelnikov.android.shopper.domain.repository.ItemRepository
 import ru.asmelnikov.android.shopper.domain.use_cases.CategoryUseCases
+import ru.asmelnikov.android.shopper.domain.use_cases.ItemsUseCases
 import ru.asmelnikov.android.shopper.domain.use_cases.categories.AddCategoryUseCase
 import ru.asmelnikov.android.shopper.domain.use_cases.categories.DeleteCategoryUseCase
 import ru.asmelnikov.android.shopper.domain.use_cases.categories.GetCategoryListUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.items.AddItemUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.items.DeleteItemUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.items.GetItemsListUseCase
 import javax.inject.Singleton
 
 
@@ -43,7 +49,23 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideItemsUseCases(repository: ItemRepository): ItemsUseCases {
+        return ItemsUseCases(
+            getItemsListUseCase = GetItemsListUseCase(repository),
+            addItemUseCase = AddItemUseCase(repository),
+            deleteItemUseCase = DeleteItemUseCase(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
     fun provideCategoryRepository(db: ShopperDataBase): CategoryRepository {
         return CategoryRepositoryImpl(db.getCategoryDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideItemsRepository(db: ShopperDataBase): ItemRepository {
+        return ItemsRepositoryImpl(db.getItemsDao())
     }
 }

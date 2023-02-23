@@ -26,6 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_text_view" />
 
+
     <EditText
         android:id="@+id/count_item_edit_text_view"
         android:layout_width="48dp"

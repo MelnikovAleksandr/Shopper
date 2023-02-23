@@ -7,17 +7,42 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="ru.asmelnikov.android.shopper.presentation.category.CategoryFragment"
-        android:label="CategoryFragment" >
+        android:label="CategoryFragment">
         <action
             android:id="@+id/action_categoryFragment_to_addNewCategorySheet"
             app:destination="@id/addNewCategorySheet" />
+        <action
+            android:id="@+id/action_categoryFragment_to_itemsListFragment"
+            app:destination="@id/itemsListFragment" />
     </fragment>
     <dialog
         android:id="@+id/addNewCategorySheet"
         android:name="ru.asmelnikov.android.shopper.presentation.sheet_dialogs.AddNewCategorySheet"
-        android:label="AddNewCategorySheet" >
+        android:label="AddNewCategorySheet">
         <action
             android:id="@+id/action_addNewCategorySheet_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/itemsListFragment"
+        android:name="ru.asmelnikov.android.shopper.presentation.items.ItemsListFragment"
+        android:label="ItemsListFragment">
+        <argument
+            android:name="category"
+            app:argType="ru.asmelnikov.android.shopper.domain.model.Category" />
+        <action
+            android:id="@+id/action_itemsListFragment_to_addNewItemSheet"
+            app:destination="@id/addNewItemSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/addNewItemSheet"
+        android:name="ru.asmelnikov.android.shopper.presentation.sheet_dialogs.AddNewItemSheet"
+        android:label="AddNewItemSheet">
+        <action
+            android:id="@+id/action_addNewItemSheet_to_itemsListFragment"
+            app:destination="@id/itemsListFragment" />
+        <argument
+            android:name="category"
+            app:argType="ru.asmelnikov.android.shopper.domain.model.Category" />
     </dialog>
 </navigation>

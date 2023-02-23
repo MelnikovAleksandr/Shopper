@@ -14,6 +14,8 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
+import ru.asmelnikov.android.shopper.domain.model.Category
+import ru.asmelnikov.android.shopper.utils.SwipeToDelete
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -49,47 +51,42 @@ class CategoryFragment : Fragment() {
             val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
             findNavController().navigate(action)
         }
-
-        ItemTouchHelper(itemTouchHelperCallback).apply {
-            attachToRecyclerView(recycler_view)
-        }
-
     }
-
-    val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
-        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-    ) {
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean {
-            return true
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val position = viewHolder.adapterPosition
-            val category = categoryAdapter.differ.currentList[position]
-            viewModel.deleteCategory(category)
-            view?.let {
-                Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
-                    setAction("Undo") {
-                        viewModel.insertCategory(category)
-                    }
-                    show()
-                }
-            }
-        }
-    }
-
 
     private fun initAdapter() {
-        categoryAdapter = CategoryAdapter()
+        categoryAdapter = CategoryAdapter(object : CategoryActionListener {
+            override fun onItemProductsList(category: Category) {
+                val action =
+                    CategoryFragmentDirections.actionCategoryFragmentToItemsListFragment(category)
+                findNavController().navigate(action)
+            }
+
+        })
         recycler_view.apply {
             adapter = categoryAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+
+        swipeToDelete(binding.recyclerView)
+    }
+
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallBack = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemDelete = categoryAdapter.differ.currentList[viewHolder.adapterPosition]
+                viewModel.deleteCategory(itemDelete)
+                view?.let {
+                    Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
+                        setAction("Undo") {
+                            viewModel.insertCategory(itemDelete)
+                        }
+                        show()
+                    }
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
 

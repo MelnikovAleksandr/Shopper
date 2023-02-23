@@ -29,5 +29,4 @@ class CategoryViewModel @Inject constructor(
             categoryUseCases.deleteCategoryUseCase(category)
         }
     }
-
 }
