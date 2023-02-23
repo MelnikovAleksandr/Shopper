@@ -1,13 +1,14 @@
 package ru.asmelnikov.android.shopper.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import ru.asmelnikov.android.shopper.domain.model.Item
 
 @Dao
 interface ItemsDao {
+
+    @Query("SELECT* FROM item WHERE categoryId = :categoryId ORDER BY bought")
+    fun getItemsList(categoryId: Int): Flow<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addItem(item: Item)

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_category.view.*
 import kotlinx.android.synthetic.main.item_items_category.view.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.domain.model.Item
@@ -44,6 +43,4 @@ class ItemsAdapter :
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-
 }
