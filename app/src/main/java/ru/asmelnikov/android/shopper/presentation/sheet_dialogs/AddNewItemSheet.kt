@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.layout_count_selector.*
 import ru.asmelnikov.android.shopper.databinding.FragmentNewItemSheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
@@ -23,6 +24,8 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
 
     private val viewModel: ItemsViewModel by viewModels()
 
+    private var countOfItems = 1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,16 +38,31 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        plus_image_view.setOnClickListener {
+            if (countOfItems < 99)
+                countOfItems++
+            count_text_view.text = countOfItems.toString()
+        }
+
+        minus_image_view.setOnClickListener {
+            if (countOfItems > 1)
+                countOfItems--
+            count_text_view.text = countOfItems.toString()
+        }
+
+
         binding.addItemButton.setOnClickListener {
             val nameItem = binding.itemNameEditTextView.text.toString()
-            val countItem = binding.countItemEditTextView.text.toString()
+            val countItem = binding.countView.countTextView.text.toString()
 
             if (nameItem.isEmpty() || countItem.isEmpty()) {
                 showErrorToast()
             } else {
                 val item = createItem(nameItem, countItem)
                 addItem(item)
+
             }
+
         }
     }
 
@@ -74,5 +92,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
         _binding = null
     }
 
-
+    interface AddNewItemSheetListener {
+        fun onInsertButtonClick(categoryName: String, amount: Int)
+    }
 }

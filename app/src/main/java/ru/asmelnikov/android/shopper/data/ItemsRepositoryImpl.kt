@@ -5,6 +5,7 @@ import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.domain.repository.ItemRepository
 
 class ItemsRepositoryImpl(private val itemsDao: ItemsDao) : ItemRepository {
+
     override fun getItemsList(categoryId: Int): Flow<List<Item>> {
         return itemsDao.getItemsList(categoryId)
     }
@@ -15,6 +16,10 @@ class ItemsRepositoryImpl(private val itemsDao: ItemsDao) : ItemRepository {
 
     override suspend fun deleteItem(item: Item) {
         itemsDao.deleteItem(item)
+    }
+
+    override fun getItem(itemId: Int): Flow<Item> {
+        return itemsDao.getItem(itemId)
     }
 
 }

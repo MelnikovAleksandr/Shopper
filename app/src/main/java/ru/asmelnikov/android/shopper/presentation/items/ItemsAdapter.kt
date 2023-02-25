@@ -37,6 +37,7 @@ class ItemsAdapter :
         val item = differ.currentList[position]
         holder.itemView.apply {
             item_name_text_view.text = item.name
+            count_text_view.text = item.count.toString()
         }
     }
 

@@ -18,4 +18,12 @@ class CategoryRepositoryImpl(
     override suspend fun deleteCategory(category: Category) {
         categoryDao.deleteCategory(category)
     }
+
+    override suspend fun editCategory(category: Category) {
+        categoryDao.editCategory(category)
+    }
+
+    override fun getCategory(id: Int): Flow<Category> {
+        return categoryDao.getCategory(id)
+    }
 }
