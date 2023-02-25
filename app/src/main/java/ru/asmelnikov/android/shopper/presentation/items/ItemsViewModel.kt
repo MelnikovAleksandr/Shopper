@@ -34,11 +34,24 @@ class ItemsViewModel @Inject constructor(
         }
     }
 
+    fun updateCategoryItemsBoughtAmount(category: Category) {
+        category.apply { allItems += 1 }
+        viewModelScope.launch {
+            categoryUseCase.editCategoryUseCase(category)
+        }
+    }
+
     fun deleteItem(item: Item, category: Category) {
         viewModelScope.launch {
             itemsUseCases.deleteItemUseCase(item)
         }
         updateCategoryItemAfterDelete(category)
+    }
+
+    fun editItem(item: Item) {
+        viewModelScope.launch {
+            itemsUseCases.editItemUseCase(item)
+        }
     }
 
     private fun updateCategoryItemAfterDelete(category: Category) {

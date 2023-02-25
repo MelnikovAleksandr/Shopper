@@ -13,4 +13,5 @@ interface ItemRepository {
 
     fun getItem(itemId: Int): Flow<Item>
 
+    suspend fun editItem(item: Item)
 }

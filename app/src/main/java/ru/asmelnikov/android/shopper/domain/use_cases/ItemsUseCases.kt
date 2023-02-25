@@ -1,13 +1,11 @@
 package ru.asmelnikov.android.shopper.domain.use_cases
 
-import ru.asmelnikov.android.shopper.domain.use_cases.items.AddItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.DeleteItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.GetItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.GetItemsListUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.items.*
 
 data class ItemsUseCases(
     val getItemsListUseCase: GetItemsListUseCase,
     val deleteItemUseCase: DeleteItemUseCase,
     val addItemUseCase: AddItemUseCase,
-    val getItemUseCase: GetItemUseCase
+    val getItemUseCase: GetItemUseCase,
+    val editItemUseCase: EditItemUseCase
 )

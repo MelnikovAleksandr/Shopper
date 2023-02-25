@@ -15,10 +15,7 @@ import ru.asmelnikov.android.shopper.domain.repository.ItemRepository
 import ru.asmelnikov.android.shopper.domain.use_cases.CategoryUseCases
 import ru.asmelnikov.android.shopper.domain.use_cases.ItemsUseCases
 import ru.asmelnikov.android.shopper.domain.use_cases.categories.*
-import ru.asmelnikov.android.shopper.domain.use_cases.items.AddItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.DeleteItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.GetItemUseCase
-import ru.asmelnikov.android.shopper.domain.use_cases.items.GetItemsListUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.items.*
 import javax.inject.Singleton
 
 
@@ -55,7 +52,8 @@ object AppModule {
             getItemsListUseCase = GetItemsListUseCase(repository),
             addItemUseCase = AddItemUseCase(repository),
             deleteItemUseCase = DeleteItemUseCase(repository),
-            getItemUseCase = GetItemUseCase(repository)
+            getItemUseCase = GetItemUseCase(repository),
+            editItemUseCase = EditItemUseCase(repository)
         )
     }
 
