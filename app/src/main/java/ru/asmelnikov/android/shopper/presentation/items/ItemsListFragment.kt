@@ -70,11 +70,12 @@ class ItemsListFragment : Fragment() {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemDelete = itemsAdapter.differ.currentList[viewHolder.adapterPosition]
-                viewModel.deleteItem(itemDelete)
+                viewModel.deleteItem(itemDelete, navArgs.category)
                 view?.let {
                     Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
                         setAction("Undo") {
                             viewModel.insertItem(itemDelete)
+                            viewModel.updateCategoryItemsAmount(navArgs.category)
                         }
                         show()
                     }

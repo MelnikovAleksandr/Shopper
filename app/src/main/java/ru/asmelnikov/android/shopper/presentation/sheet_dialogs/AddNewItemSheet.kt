@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_count_selector.*
 import ru.asmelnikov.android.shopper.databinding.FragmentNewItemSheetBinding
+import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
 
@@ -23,6 +24,8 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
     private val navArgs: AddNewItemSheetArgs by navArgs()
 
     private val viewModel: ItemsViewModel by viewModels()
+
+    private lateinit var category: Category
 
     private var countOfItems = 1
 
@@ -37,6 +40,10 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        category = navArgs.category
+
+        viewModel.updateCategoryItemsAmount(category)
 
         plus_image_view.setOnClickListener {
             if (countOfItems < 99)
@@ -60,9 +67,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
             } else {
                 val item = createItem(nameItem, countItem)
                 addItem(item)
-
             }
-
         }
     }
 
@@ -90,9 +95,5 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    interface AddNewItemSheetListener {
-        fun onInsertButtonClick(categoryName: String, amount: Int)
     }
 }
