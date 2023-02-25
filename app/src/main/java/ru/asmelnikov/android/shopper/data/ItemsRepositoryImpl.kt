@@ -22,4 +22,8 @@ class ItemsRepositoryImpl(private val itemsDao: ItemsDao) : ItemRepository {
         return itemsDao.getItem(itemId)
     }
 
+    override suspend fun editItem(item: Item) {
+        itemsDao.editItem(item)
+    }
+
 }

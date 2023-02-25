@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.databinding.FragmentItemListBinding
+import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
 
 @AndroidEntryPoint
@@ -58,7 +59,11 @@ class ItemsListFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        itemsAdapter = ItemsAdapter()
+        itemsAdapter = ItemsAdapter(object : ItemActionListener {
+            override fun onItemEdit(item: Item) {
+                viewModel.editItem(item)
+            }
+        })
         recycler_view.apply {
             adapter = itemsAdapter
             layoutManager = LinearLayoutManager(activity)

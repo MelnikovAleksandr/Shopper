@@ -19,5 +19,8 @@ interface ItemsDao {
     @Delete
     suspend fun deleteItem(item: Item)
 
+    @Update
+    suspend fun editItem(item: Item)
+
 
 }

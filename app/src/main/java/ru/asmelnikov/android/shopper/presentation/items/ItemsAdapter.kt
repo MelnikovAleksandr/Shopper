@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.item_items_category.view.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.domain.model.Item
 
-class ItemsAdapter :
+class ItemsAdapter(
+    private val itemActionListener: ItemActionListener
+) :
     RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>() {
 
     inner class ItemsViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -38,6 +40,12 @@ class ItemsAdapter :
         holder.itemView.apply {
             item_name_text_view.text = item.name
             count_text_view.text = item.count.toString()
+            check_box.isChecked = item.bought
+
+            check_box.setOnClickListener {
+                item.bought = check_box.isChecked
+                itemActionListener.onItemEdit(item)
+            }
         }
     }
 
