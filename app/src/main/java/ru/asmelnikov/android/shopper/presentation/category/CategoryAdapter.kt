@@ -37,6 +37,7 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
         val category = differ.currentList[position]
         holder.itemView.apply {
             category_item_name.text = category.name
+            count_of_items.text = category.allItems.toString()
         }
         holder.itemView.setOnClickListener {
             categoryActionListener.onItemProductsList(category)

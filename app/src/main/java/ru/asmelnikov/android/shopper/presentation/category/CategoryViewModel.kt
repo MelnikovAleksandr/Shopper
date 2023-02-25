@@ -29,4 +29,10 @@ class CategoryViewModel @Inject constructor(
             categoryUseCases.deleteCategoryUseCase(category)
         }
     }
+
+    fun getCategoryById(categoryId: Int) {
+        viewModelScope.launch {
+            categoryUseCases.getCategoryUseCase(categoryId)
+        }
+    }
 }
