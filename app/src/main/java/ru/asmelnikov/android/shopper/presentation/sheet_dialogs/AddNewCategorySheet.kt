@@ -52,7 +52,9 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
     private fun createCategory(nameCategory: String): Category {
         return Category(
             id = 0,
-            name = nameCategory
+            name = nameCategory,
+            allItems = 0,
+            doneItems = 0
         )
     }
 

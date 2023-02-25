@@ -10,4 +10,8 @@ interface CategoryRepository {
     fun getCategoryList(): Flow<List<Category>>
 
     suspend fun deleteCategory(category: Category)
+
+    suspend fun editCategory(category: Category)
+
+    fun getCategory(id: Int): Flow<Category>
 }
