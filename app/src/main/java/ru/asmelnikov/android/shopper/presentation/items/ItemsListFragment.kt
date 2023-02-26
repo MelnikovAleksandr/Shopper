@@ -64,6 +64,14 @@ class ItemsListFragment : Fragment() {
                 viewModel.editItem(item)
                 viewModel.updateCategoryDoneItemsValue(navArgs.category, item.bought)
             }
+
+            override fun onItemEditSheet(item: Item) {
+                val action =
+                    ItemsListFragmentDirections.actionItemsListFragmentToEditItemSheet(
+                        navArgs.category, item
+                    )
+                findNavController().navigate(action)
+            }
         })
         recycler_view.apply {
             adapter = itemsAdapter
