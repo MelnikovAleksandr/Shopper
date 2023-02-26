@@ -24,7 +24,7 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddNewCategorySheetBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -34,7 +34,7 @@ class ItemsListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,6 +62,7 @@ class ItemsListFragment : Fragment() {
         itemsAdapter = ItemsAdapter(object : ItemActionListener {
             override fun onItemEdit(item: Item) {
                 viewModel.editItem(item)
+                viewModel.updateCategoryDoneItemsValue(navArgs.category, item.bought)
             }
         })
         recycler_view.apply {
@@ -75,12 +76,11 @@ class ItemsListFragment : Fragment() {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemDelete = itemsAdapter.differ.currentList[viewHolder.adapterPosition]
-                viewModel.deleteItem(itemDelete, navArgs.category)
+                viewModel.deleteItemOnSwipe(itemDelete, navArgs.category)
                 view?.let {
                     Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
                         setAction("Undo") {
-                            viewModel.insertItem(itemDelete)
-                            viewModel.updateCategoryItemsAmount(navArgs.category)
+                            viewModel.undoDeletedItem(itemDelete, navArgs.category)
                         }
                         show()
                     }
@@ -95,5 +95,4 @@ class ItemsListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
