@@ -33,7 +33,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNewItemSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,8 +42,6 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         category = navArgs.category
-
-        viewModel.updateCategoryItemsAmount(category)
 
         plus_image_view.setOnClickListener {
             if (countOfItems < 99)
@@ -67,6 +65,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
             } else {
                 val item = createItem(nameItem, countItem)
                 addItem(item)
+                viewModel.updateInsertCategoryAllItemsAmount(category)
             }
         }
     }

@@ -27,40 +27,67 @@ class ItemsViewModel @Inject constructor(
         }
     }
 
-    fun updateCategoryItemsAmount(category: Category) {
-        category.apply { allItems += 1 }
-        viewModelScope.launch {
-            categoryUseCase.editCategoryUseCase(category)
-        }
-    }
-
-    fun updateCategoryItemsBoughtAmount(category: Category) {
-        category.apply { allItems += 1 }
-        viewModelScope.launch {
-            categoryUseCase.editCategoryUseCase(category)
-        }
-    }
-
-    fun deleteItem(item: Item, category: Category) {
-        viewModelScope.launch {
-            itemsUseCases.deleteItemUseCase(item)
-        }
-        updateCategoryItemAfterDelete(category)
-    }
-
     fun editItem(item: Item) {
         viewModelScope.launch {
             itemsUseCases.editItemUseCase(item)
         }
     }
 
-    private fun updateCategoryItemAfterDelete(category: Category) {
-        category.apply { allItems -= 1 }
-        viewModelScope.launch {
-            categoryUseCase.editCategoryUseCase(category)
+    fun updateCategoryDoneItemsValue(category: Category, bought: Boolean) {
+        category.apply {
+            if (bought) doneItems += 1 else doneItems -= 1
         }
+        updateCategoryList(category)
     }
 
+    fun deleteItemOnSwipe(item: Item, category: Category) = viewModelScope.launch {
+        itemsUseCases.deleteItemUseCase(item)
+        updateCategoryListOnItemsSwipe(category, item.bought)
+    }
+
+    fun undoDeletedItem(item: Item, category: Category) = viewModelScope.launch {
+        itemsUseCases.addItemUseCase(item)
+        updateCategoryListOnItemsSwipeUndo(category, item.bought)
+    }
+
+    fun updateInsertCategoryAllItemsAmount(category: Category) {
+        category.apply { allItems += 1 }
+        updateCategoryList(category)
+    }
+
+    private fun updateCategoryList(category: Category) = viewModelScope.launch {
+        categoryUseCase.editCategoryUseCase(category)
+    }
+
+    private fun updateCategoryListOnItemsSwipe(
+        category: Category,
+        bought: Boolean
+    ) {
+        category.apply {
+            if (bought) {
+                allItems -= 1
+                doneItems -= 1
+            } else {
+                allItems -= 1
+            }
+        }
+        updateCategoryList(category)
+    }
+
+    private fun updateCategoryListOnItemsSwipeUndo(
+        category: Category,
+        bought: Boolean
+    ) {
+        category.apply {
+            if (bought) {
+                allItems += 1
+                doneItems += 1
+            } else {
+                allItems += 1
+            }
+        }
+        updateCategoryList(category)
+    }
 
     companion object {
         private const val CATEGORY_STATE_KEY = "category"
