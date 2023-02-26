@@ -22,5 +22,4 @@ interface ItemsDao {
     @Update
     suspend fun editItem(item: Item)
 
-
 }

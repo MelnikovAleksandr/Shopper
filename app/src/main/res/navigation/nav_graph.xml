@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_itemsListFragment"
             app:destination="@id/itemsListFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_editCategorySheet"
+            app:destination="@id/editCategorySheet" />
     </fragment>
     <dialog
         android:id="@+id/addNewCategorySheet"
@@ -33,6 +36,9 @@
         <action
             android:id="@+id/action_itemsListFragment_to_addNewItemSheet"
             app:destination="@id/addNewItemSheet" />
+        <action
+            android:id="@+id/action_itemsListFragment_to_editItemSheet"
+            app:destination="@id/editItemSheet" />
     </fragment>
     <dialog
         android:id="@+id/addNewItemSheet"
@@ -44,5 +50,30 @@
         <argument
             android:name="category"
             app:argType="ru.asmelnikov.android.shopper.domain.model.Category" />
+    </dialog>
+    <dialog
+        android:id="@+id/editCategorySheet"
+        android:name="ru.asmelnikov.android.shopper.presentation.sheet_dialogs.EditCategorySheet"
+        android:label="EditCategorySheet" >
+        <action
+            android:id="@+id/action_editCategorySheet_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <argument
+            android:name="category"
+            app:argType="ru.asmelnikov.android.shopper.domain.model.Category" />
+    </dialog>
+    <dialog
+        android:id="@+id/editItemSheet"
+        android:name="ru.asmelnikov.android.shopper.presentation.sheet_dialogs.EditItemSheet"
+        android:label="EditItemSheet" >
+        <action
+            android:id="@+id/action_editItemSheet_to_itemsListFragment"
+            app:destination="@id/itemsListFragment" />
+        <argument
+            android:name="category"
+            app:argType="ru.asmelnikov.android.shopper.domain.model.Category" />
+        <argument
+            android:name="item"
+            app:argType="ru.asmelnikov.android.shopper.domain.model.Item" />
     </dialog>
 </navigation>

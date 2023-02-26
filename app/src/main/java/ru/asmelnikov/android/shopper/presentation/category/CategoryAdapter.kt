@@ -42,6 +42,11 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
         holder.itemView.setOnClickListener {
             categoryActionListener.onItemProductsList(category)
         }
+
+        holder.itemView.setOnLongClickListener {
+            categoryActionListener.onEditProductList(category)
+            true
+        }
     }
 
     override fun getItemCount(): Int {

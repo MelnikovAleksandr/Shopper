@@ -91,6 +91,12 @@ class CategoryFragment : Fragment() {
                 findNavController().navigate(action)
             }
 
+            override fun onEditProductList(category: Category) {
+                val action =
+                    CategoryFragmentDirections.actionCategoryFragmentToEditCategorySheet(category)
+                findNavController().navigate(action)
+            }
+
         })
         recycler_view.apply {
             adapter = categoryAdapter

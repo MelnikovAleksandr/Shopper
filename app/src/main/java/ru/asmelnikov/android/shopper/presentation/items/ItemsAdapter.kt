@@ -46,6 +46,11 @@ class ItemsAdapter(
                 item.bought = check_box.isChecked
                 itemActionListener.onItemEdit(item)
             }
+
+            item_constraint_layout.setOnLongClickListener {
+                itemActionListener.onItemEditSheet(item)
+                true
+            }
         }
     }
 
