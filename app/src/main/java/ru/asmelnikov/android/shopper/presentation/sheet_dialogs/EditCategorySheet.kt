@@ -11,7 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.asmelnikov.android.shopper.databinding.FragmentEditCategorySheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
+import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.presentation.category.CategoryViewModel
+import ru.asmelnikov.android.shopper.utils.WordsCompleterAdapter
 
 @AndroidEntryPoint
 class EditCategorySheet : BottomSheetDialogFragment() {
@@ -37,17 +39,29 @@ class EditCategorySheet : BottomSheetDialogFragment() {
 
         binding.categoryNameEditText.setText(args.category.name)
 
-        binding.addButton.setOnClickListener {
-            val nameCategory = binding.categoryNameEditText.text.toString()
+        viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
 
-            if (nameCategory.isEmpty()) {
-                showErrorToast()
-            } else {
-                val category = createCategory(args.category, nameCategory)
-                addCategory(category)
+            wordsList.let {
+
+                val adapter = WordsCompleterAdapter(requireContext(), wordsList)
+
+                binding.categoryNameEditText.setAdapter(adapter)
+
+                binding.addButton.setOnClickListener {
+
+                    val nameCategory = binding.categoryNameEditText.text.toString()
+
+                    val word = createWord(nameCategory)
+                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
+
+                    if (nameCategory.isEmpty()) {
+                        showErrorToast()
+                    } else {
+                        val category = createCategory(args.category, nameCategory)
+                        addCategory(category)
+                    }
+                }
             }
-
-
         }
 
     }
@@ -63,6 +77,10 @@ class EditCategorySheet : BottomSheetDialogFragment() {
             allItems = category.allItems,
             doneItems = category.doneItems
         )
+    }
+
+    private fun createWord(word: String): WordsForAutoComplete {
+        return WordsForAutoComplete(word = word)
     }
 
     private fun addCategory(category: Category) {

@@ -20,6 +20,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="28dp"
         android:hint="enter new category name"
+        android:completionThreshold="1"
         android:inputType="text"
         android:textColorHint="@color/cardview_shadow_start_color"
         app:layout_constraintEnd_toEndOf="parent"
