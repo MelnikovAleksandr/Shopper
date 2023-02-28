@@ -14,14 +14,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/category_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="28dp"
         android:hint="enter category name"
+        android:completionThreshold="1"
         android:inputType="text"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_text_view" />

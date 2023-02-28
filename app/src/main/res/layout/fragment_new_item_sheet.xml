@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/item_name_edit_text_view"
         android:layout_width="200dp"
         android:layout_height="48dp"
