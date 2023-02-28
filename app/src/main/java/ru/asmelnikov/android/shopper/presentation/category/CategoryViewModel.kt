@@ -7,16 +7,28 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.asmelnikov.android.shopper.domain.model.Category
+import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.domain.use_cases.CategoryUseCases
+import ru.asmelnikov.android.shopper.domain.use_cases.WordsUseCases
 import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-    private val categoryUseCases: CategoryUseCases
+    private val categoryUseCases: CategoryUseCases,
+    private val wordsUseCases: WordsUseCases
 ) : ViewModel() {
 
     val categoryList: LiveData<List<Category>> =
         categoryUseCases.getCategoryListUseCase().asLiveData()
+
+    val wordsList: LiveData<List<WordsForAutoComplete>> =
+        wordsUseCases.getAllWordsUseCase().asLiveData()
+
+    fun insertNewWord(word: WordsForAutoComplete) {
+        viewModelScope.launch {
+            wordsUseCases.insertWordsUseCase(word)
+        }
+    }
 
     fun insertCategory(category: Category) {
         viewModelScope.launch {

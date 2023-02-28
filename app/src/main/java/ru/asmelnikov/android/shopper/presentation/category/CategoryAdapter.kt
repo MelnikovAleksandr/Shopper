@@ -1,5 +1,7 @@
 package ru.asmelnikov.android.shopper.presentation.category
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +40,13 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
         holder.itemView.apply {
             category_item_name.text = category.name
             count_of_items.text = "${category.doneItems} / ${category.allItems}"
+            if (category.doneItems == category.allItems && category.allItems != 0) {
+                category_item_name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                setBackgroundColor(Color.RED)
+            } else {
+                category_item_name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                setBackgroundColor(Color.WHITE)
+            }
         }
         holder.itemView.setOnClickListener {
             categoryActionListener.onItemProductsList(category)

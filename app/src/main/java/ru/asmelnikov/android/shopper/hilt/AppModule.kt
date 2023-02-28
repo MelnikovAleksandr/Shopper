@@ -10,12 +10,17 @@ import dagger.hilt.components.SingletonComponent
 import ru.asmelnikov.android.shopper.data.CategoryRepositoryImpl
 import ru.asmelnikov.android.shopper.data.ItemsRepositoryImpl
 import ru.asmelnikov.android.shopper.data.ShopperDataBase
+import ru.asmelnikov.android.shopper.data.WordsRepositoryImpl
 import ru.asmelnikov.android.shopper.domain.repository.CategoryRepository
 import ru.asmelnikov.android.shopper.domain.repository.ItemRepository
+import ru.asmelnikov.android.shopper.domain.repository.WordsRepository
 import ru.asmelnikov.android.shopper.domain.use_cases.CategoryUseCases
 import ru.asmelnikov.android.shopper.domain.use_cases.ItemsUseCases
+import ru.asmelnikov.android.shopper.domain.use_cases.WordsUseCases
 import ru.asmelnikov.android.shopper.domain.use_cases.categories.*
 import ru.asmelnikov.android.shopper.domain.use_cases.items.*
+import ru.asmelnikov.android.shopper.domain.use_cases.words.InsertWordsUseCase
+import ru.asmelnikov.android.shopper.domain.use_cases.words.GetAllWordsUseCase
 import javax.inject.Singleton
 
 
@@ -59,6 +64,15 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideWordsUseCases(repository: WordsRepository): WordsUseCases {
+        return WordsUseCases(
+            insertWordsUseCase = InsertWordsUseCase(repository),
+            getAllWordsUseCase = GetAllWordsUseCase(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
     fun provideCategoryRepository(db: ShopperDataBase): CategoryRepository {
         return CategoryRepositoryImpl(db.getCategoryDao())
     }
@@ -67,5 +81,11 @@ object AppModule {
     @Singleton
     fun provideItemsRepository(db: ShopperDataBase): ItemRepository {
         return ItemsRepositoryImpl(db.getItemsDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideWordsRepository(db: ShopperDataBase): WordsRepository {
+        return WordsRepositoryImpl(db.getWordsDao())
     }
 }
