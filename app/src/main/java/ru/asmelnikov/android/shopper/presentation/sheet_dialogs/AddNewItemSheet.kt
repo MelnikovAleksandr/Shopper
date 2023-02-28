@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.layout_count_selector.*
 import ru.asmelnikov.android.shopper.databinding.FragmentNewItemSheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.Item
+import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
+import ru.asmelnikov.android.shopper.utils.WordsCompleterAdapter
 
 @AndroidEntryPoint
 class AddNewItemSheet : BottomSheetDialogFragment() {
@@ -55,17 +57,26 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
             count_text_view.text = countOfItems.toString()
         }
 
+        viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
 
-        binding.addItemButton.setOnClickListener {
-            val nameItem = binding.itemNameEditTextView.text.toString()
-            val countItem = binding.countView.countTextView.text.toString()
+            wordsList.let {
+                val adapter = WordsCompleterAdapter(requireContext(), wordsList)
+                binding.itemNameEditTextView.setAdapter(adapter)
+                binding.addItemButton.setOnClickListener {
+                    val nameItem = binding.itemNameEditTextView.text.toString()
+                    val countItem = binding.countView.countTextView.text.toString()
 
-            if (nameItem.isEmpty() || countItem.isEmpty()) {
-                showErrorToast()
-            } else {
-                val item = createItem(nameItem, countItem)
-                addItem(item)
-                viewModel.updateInsertCategoryAllItemsAmount(category)
+                    val word = createWord(nameItem)
+                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
+
+                    if (nameItem.isEmpty() || countItem.isEmpty()) {
+                        showErrorToast()
+                    } else {
+                        val item = createItem(nameItem, countItem)
+                        addItem(item)
+                        viewModel.updateInsertCategoryAllItemsAmount(category)
+                    }
+                }
             }
         }
     }
@@ -77,6 +88,10 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
     private fun addItem(item: Item) {
         viewModel.insertItem(item)
         dismiss()
+    }
+
+    private fun createWord(word: String): WordsForAutoComplete {
+        return WordsForAutoComplete(word = word)
     }
 
     private fun createItem(nameItem: String, countItem: String): Item {

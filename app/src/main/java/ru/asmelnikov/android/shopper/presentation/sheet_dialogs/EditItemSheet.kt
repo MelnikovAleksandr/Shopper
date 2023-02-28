@@ -12,7 +12,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_count_selector.*
 import ru.asmelnikov.android.shopper.databinding.FragmentEditItemSheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Item
+import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
+import ru.asmelnikov.android.shopper.utils.WordsCompleterAdapter
 
 @AndroidEntryPoint
 class EditItemSheet : BottomSheetDialogFragment() {
@@ -56,19 +58,27 @@ class EditItemSheet : BottomSheetDialogFragment() {
             countView.countTextView.text = args.item.count.toString()
         }
 
-        binding.addItemButton.setOnClickListener {
-            val nameItem = binding.itemNameEditTextView.text.toString()
-            val countItem = binding.countView.countTextView.text.toString()
+        viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
 
-            if (nameItem.isEmpty() || countItem.isEmpty()) {
-                showErrorToast()
-            } else {
-                val item = createItem(nameItem, countItem)
-                editItem(item)
+            wordsList.let {
+                val adapter = WordsCompleterAdapter(requireContext(), wordsList)
+                binding.itemNameEditTextView.setAdapter(adapter)
+                binding.addItemButton.setOnClickListener {
+                    val nameItem = binding.itemNameEditTextView.text.toString()
+                    val countItem = binding.countView.countTextView.text.toString()
+
+                    val word = createWord(nameItem)
+                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
+
+                    if (nameItem.isEmpty() || countItem.isEmpty()) {
+                        showErrorToast()
+                    } else {
+                        val item = createItem(nameItem, countItem)
+                        editItem(item)
+                    }
+                }
             }
-
         }
-
     }
 
     private fun showErrorToast() {
@@ -84,6 +94,10 @@ class EditItemSheet : BottomSheetDialogFragment() {
             categoryId = args.item.categoryId,
             price = 0F
         )
+    }
+
+    private fun createWord(word: String): WordsForAutoComplete {
+        return WordsForAutoComplete(word = word)
     }
 
     private fun editItem(item: Item) {
