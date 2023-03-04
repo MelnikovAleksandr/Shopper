@@ -1,10 +1,10 @@
 package ru.asmelnikov.android.shopper.presentation.category
 
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -38,14 +38,20 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
         holder.itemView.apply {
+            progress_indicator.max = category.allItems
+            progress_indicator.progress = category.doneItems
             category_item_name.text = category.name
-            count_of_items.text = "${category.doneItems} / ${category.allItems}"
+            progress_text_view.text = "${category.doneItems}/${category.allItems}"
             if (category.doneItems == category.allItems && category.allItems != 0) {
+                progress_indicator.setIndicatorColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.teal_700
+                    )
+                )
                 category_item_name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                setBackgroundColor(Color.RED)
             } else {
-                category_item_name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                setBackgroundColor(Color.WHITE)
+                category_item_name.paintFlags = 0
             }
         }
         holder.itemView.setOnClickListener {
