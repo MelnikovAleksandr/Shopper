@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
+
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -44,11 +46,34 @@ class CategoryFragment : Fragment() {
 
         viewModel.categoryList.observe(this.viewLifecycleOwner) { category ->
             category.let {
+                var countOfDoneList = 0
                 categoryAdapter.differ.submitList(it)
+                binding.allListsTextView.text = category.size.toString()
+                category.map { category ->
+                    if (category.allItems == category.doneItems && category.allItems != 0)
+                        countOfDoneList++
+                }
+                binding.doneListsTextView.text = countOfDoneList.toString()
+
+                binding.emptyList.emptyListView.isVisible = category.isEmpty()
             }
         }
 
-        binding.addNewCategoryButton.setOnClickListener {
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> floating_action_button.show()
+                    else -> floating_action_button.hide()
+                }
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        }
+
+        recycler_view.clearOnScrollListeners()
+        recycler_view.addOnScrollListener(scrollListener)
+
+
+        binding.floatingActionButton.setOnClickListener {
             val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
             findNavController().navigate(action)
         }
