@@ -7,4 +7,6 @@ interface CategoryActionListener {
     fun onItemProductsList(category: Category)
 
     fun onEditProductList(category: Category)
+
+    fun onCategoryDelete(category: Category)
 }

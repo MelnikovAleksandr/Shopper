@@ -17,9 +17,6 @@
         <action
             android:id="@+id/action_categoryFragment_to_editCategorySheet"
             app:destination="@id/editCategorySheet" />
-        <action
-            android:id="@+id/action_categoryFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
     </fragment>
     <dialog
         android:id="@+id/addNewCategorySheet"
@@ -79,8 +76,4 @@
             android:name="item"
             app:argType="ru.asmelnikov.android.shopper.domain.model.Item" />
     </dialog>
-    <fragment
-        android:id="@+id/optionsFragment"
-        android:name="ru.asmelnikov.android.shopper.presentation.options.OptionsFragment"
-        android:label="OptionsFragment" />
 </navigation>

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentEditCategorySheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
@@ -21,9 +23,11 @@ class EditCategorySheet : BottomSheetDialogFragment() {
     private var _binding: FragmentEditCategorySheetBinding? = null
     private val binding get() = _binding!!
 
-    private val args: EditCategorySheetArgs by navArgs()
+    private val args: EditCategorySheetArgs by this.navArgs()
 
     private val viewModel: CategoryViewModel by viewModels()
+
+    override fun getTheme() = R.style.AppBottomSheetDialogTheme
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +54,7 @@ class EditCategorySheet : BottomSheetDialogFragment() {
                 binding.addButton.setOnClickListener {
 
                     val nameCategory = binding.categoryNameEditText.text.toString()
+                    val categoryDrop = binding.dropDownAutoComplete.text.toString()
 
                     val word = createWord(nameCategory)
                     if (!wordsList.contains(word)) viewModel.insertNewWord(word)
@@ -57,7 +62,7 @@ class EditCategorySheet : BottomSheetDialogFragment() {
                     if (nameCategory.isEmpty()) {
                         showErrorToast()
                     } else {
-                        val category = createCategory(args.category, nameCategory)
+                        val category = createCategory(args.category, nameCategory, categoryDrop)
                         addCategory(category)
                     }
                 }
@@ -66,16 +71,25 @@ class EditCategorySheet : BottomSheetDialogFragment() {
 
     }
 
-    private fun showErrorToast() {
-        Toast.makeText(context, "Please enter all information", Toast.LENGTH_SHORT).show()
+    override fun onResume() {
+        super.onResume()
+        val categoriesDropDown = resources.getStringArray(R.array.categories)
+        val arrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
+        binding.dropDownAutoComplete.setAdapter(arrayAdapter)
     }
 
-    private fun createCategory(category: Category, nameCategory: String): Category {
+    private fun showErrorToast() {
+        Toast.makeText(context, "Пожалуйста заполните все поля", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun createCategory(category: Category, nameCategory: String, categoryName: String): Category {
         return Category(
             id = category.id,
             name = nameCategory,
             allItems = category.allItems,
-            doneItems = category.doneItems
+            doneItems = category.doneItems,
+            category = categoryName
         )
     }
 

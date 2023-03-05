@@ -1,9 +1,11 @@
 package ru.asmelnikov.android.shopper.presentation.category
 
 import android.graphics.Paint
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -38,6 +40,30 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
         holder.itemView.apply {
+
+            category_img.setImageResource(
+                when (category.category) {
+                    "Аптека" -> R.drawable.medicine_ic
+                    "Алкоголь" -> R.drawable.alcohol_ic
+                    "Продукты" -> R.drawable.food_ic
+                    "Супермаркет" -> R.drawable.mall_ic
+                    "Косметика" -> R.drawable.cosmetic_ic
+                    "Хозяйственный" -> R.drawable.cleaning_products_ic
+                    "Питомцы" -> R.drawable.pet_ic
+                    "Сад-огород" -> R.drawable.botany_ic
+                    "Одежда" -> R.drawable.clothes_ic
+                    "Книги" -> R.drawable.books_ic_2
+                    "Инструменты" -> R.drawable.tools_ic
+                    "Доставка" -> R.drawable.delivery_ic
+                    "Бытовая техника" -> R.drawable.tech_ic
+                    "Мебель" -> R.drawable.furniture_ic
+                    "Спорт" -> R.drawable.sports_ic
+                    "Для детей" -> R.drawable.baby_ic
+                    "Автомобиль" -> R.drawable.car_ic
+                    else -> R.drawable.other_items_ic
+                }
+            )
+
             progress_indicator.max = category.allItems
             progress_indicator.progress = category.doneItems
             category_item_name.text = category.name
@@ -53,6 +79,10 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
             } else {
                 category_item_name.paintFlags = 0
             }
+
+            menu_button.setOnClickListener {
+                popupMenu(it, category)
+            }
         }
         holder.itemView.setOnClickListener {
             categoryActionListener.onItemProductsList(category)
@@ -64,9 +94,28 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
         }
     }
 
+    private fun popupMenu(view: View, category: Category) {
+        val popupMenu = PopupMenu(view.context, view)
+        popupMenu.inflate(R.menu.category_item_popup_menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.edit_category -> {
+                    categoryActionListener.onEditProductList(category)
+                    true
+                }
+                R.id.delete_category -> {
+                    categoryActionListener.onCategoryDelete(category)
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu.setForceShowIcon(true)
+        popupMenu.gravity = Gravity.END
+        popupMenu.show()
+    }
+
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-
 }

@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">Shopper</string>
     <string name="let_s_create_a_shopping_list">Let\'s create a shopping list!</string>
+
+    <string-array name="categories">
+        <item>Аптека</item>
+        <item>Алкоголь</item>
+        <item>Продукты</item>
+        <item>Супермаркет</item>
+        <item>Косметика</item>
+        <item>Хозяйственный</item>
+        <item>Питомцы</item>
+        <item>Сад-огород</item>
+        <item>Одежда</item>
+        <item>Книги</item>
+        <item>Инструменты</item>
+        <item>Доставка</item>
+        <item>Бытовая техника</item>
+        <item>Мебель</item>
+        <item>Спорт</item>
+        <item>Для детей</item>
+        <item>Автомобиль</item>
+        <item>Прочее</item>
+
+    </string-array>
 </resources>
