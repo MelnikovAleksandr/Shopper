@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentAddNewCategorySheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
@@ -21,6 +23,8 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private val viewModel: CategoryViewModel by viewModels()
+
+    override fun getTheme() = R.style.AppBottomSheetDialogTheme
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +49,7 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
                 binding.addButton.setOnClickListener {
 
                     val nameCategory = binding.categoryNameEditText.text.toString()
+                    val categoryDrop = binding.dropDownAutoComplete.text.toString()
 
                     val word = createWord(nameCategory)
                     if (!wordsList.contains(word)) viewModel.insertNewWord(word)
@@ -52,7 +57,7 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
                     if (nameCategory.isEmpty()) {
                         showErrorToast()
                     } else {
-                        val category = createCategory(nameCategory)
+                        val category = createCategory(nameCategory, categoryDrop)
                         addCategory(category)
                     }
                 }
@@ -60,16 +65,25 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val categoriesDropDown = resources.getStringArray(R.array.categories)
+        val arrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
+        binding.dropDownAutoComplete.setAdapter(arrayAdapter)
+    }
+
     private fun showErrorToast() {
         Toast.makeText(context, "Please enter all information", Toast.LENGTH_SHORT).show()
     }
 
-    private fun createCategory(nameCategory: String): Category {
+    private fun createCategory(nameCategory: String, category: String): Category {
         return Category(
             id = 0,
             name = nameCategory,
             allItems = 0,
-            doneItems = 0
+            doneItems = 0,
+            category = category
         )
     }
 

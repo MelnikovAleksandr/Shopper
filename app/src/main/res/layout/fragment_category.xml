@@ -9,19 +9,19 @@
     <View
         android:id="@+id/view_header"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="120dp"
         android:background="@color/slate_grey"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/main_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/brokgauzefron"
+        android:fontFamily="sans-serif-thin"
         android:text="Shopper - списки покупок"
-        android:textColor="@color/periwinkle_crayola"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +44,13 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/brokgauzefron"
+                android:fontFamily="sans-serif-thin"
                 android:text="Общая информация"
-                android:textColor="@color/slate_grey"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,27 +68,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/ic_done_lists" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/brokgauzefron"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Списки: "
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/all_lists_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="35"
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -105,27 +105,27 @@
                 app:layout_constraintStart_toEndOf="@id/lists_info_layout"
                 app:layout_constraintTop_toBottomOf="@id/text_view">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/ic_favorites" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/brokgauzefron"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Закончены: "
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/done_lists_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="14"
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -142,26 +142,26 @@
                 app:layout_constraintStart_toEndOf="@id/done_lists_info_layout"
                 app:layout_constraintTop_toBottomOf="@id/text_view">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/ic_lists" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:fontFamily="@font/brokgauzefron"
+                    android:fontFamily="sans-serif-thin"
                     android:text="Стоимость: "
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3700 ₽"
-                    android:textColor="@color/slate_grey"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -186,7 +186,8 @@
 
     <include
         android:id="@+id/empty_list"
-        layout="@layout/empty_list" />
+        layout="@layout/empty_list"
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
@@ -196,7 +197,6 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_add_cart"
         app:fabCustomSize="80dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp" />

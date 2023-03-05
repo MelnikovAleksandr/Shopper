@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/slate_grey</item>
         <item name="colorPrimaryVariant">@color/blue_green_crayola</item>
-        <item name="colorOnPrimary">@color/periwinkle_crayola</item>
+        <item name="colorOnPrimary">@color/blue_green_crayola</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/heather_purple</item>
         <item name="colorSecondaryVariant">@color/turkish_pink</item>
@@ -12,13 +12,30 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
+
     </style>
 
-    <style name="BottomSheetDialogStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_dialog_background</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
+        <item name="colorControlNormal">@color/blue_green_crayola</item>
+        <item name="colorControlActivated">@color/blue_green_crayola</item>
+        <item name="colorControlHighlight">@color/blue_green_crayola</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu" parent="">
+        <item name="colorControlNormal">@color/blue_green_crayola</item>
+        <item name="colorControlActivated">@color/blue_green_crayola</item>
+        <item name="colorControlHighlight">@color/blue_green_crayola</item>
     </style>
 
 </resources>
