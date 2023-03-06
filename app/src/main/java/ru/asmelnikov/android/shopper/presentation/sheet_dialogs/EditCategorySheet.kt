@@ -42,6 +42,7 @@ class EditCategorySheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.categoryNameEditText.setText(args.category.name)
+        binding.dropDownAutoComplete.setText(args.category.category)
 
         viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
 

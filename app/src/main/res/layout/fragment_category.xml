@@ -71,7 +71,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
-                    android:src="@drawable/ic_done_lists" />
+                    android:src="@drawable/shopping_list_ic" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="52dp"
                     android:layout_height="52dp"
-                    android:src="@drawable/ic_lists" />
+                    android:src="@drawable/cost_main_ic" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -199,6 +199,6 @@
         app:fabCustomSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="40dp" />
+        app:maxImageSize="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,11 @@
 package ru.asmelnikov.android.shopper.presentation.items
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category.*
+import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentItemListBinding
 import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
+import ru.asmelnikov.android.shopper.utils.imageBinding
 
 @AndroidEntryPoint
 class ItemsListFragment : Fragment() {
@@ -42,7 +46,6 @@ class ItemsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-        binding.categoryNameText.text = navArgs.category.name
 
         viewModel.allItems.observe(this.viewLifecycleOwner) {
             it.let {
@@ -50,12 +53,53 @@ class ItemsListFragment : Fragment() {
             }
         }
 
-        binding.addNewItemButton.setOnClickListener {
-            val action =
-                ItemsListFragmentDirections.actionItemsListFragmentToAddNewItemSheet(navArgs.category)
-            findNavController().navigate(action)
+        viewModel.categoryList.observe(this.viewLifecycleOwner) { category ->
+            category.let {
+                binding.apply {
+                    floatingActionButton.setOnClickListener {
+                        val action =
+                            ItemsListFragmentDirections.actionItemsListFragmentToAddNewItemSheet(
+                                navArgs.category
+                            )
+                        findNavController().navigate(action)
+                    }
+                    imageBinding(categoryImgView, navArgs.category)
+                    floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255))
+                    categoryTextView.text = navArgs.category.name
+                    categoryNameTextView.text = navArgs.category.category
+                    itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
+                    progressIndicator.max = navArgs.category.allItems
+                    progressIndicator.progress = navArgs.category.doneItems
+                    if (navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0) {
+                        progressIndicator.setIndicatorColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.teal_700
+                            )
+                        )
+                        itemsCount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.slate_grey
+                            )
+                        )
+                    } else {
+                        progressIndicator.setIndicatorColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.amaranth_purple
+                            )
+                        )
+                        itemsCount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.amaranth_purple
+                            )
+                        )
+                    }
+                }
+            }
         }
-
     }
 
     private fun initAdapter() {
@@ -86,8 +130,8 @@ class ItemsListFragment : Fragment() {
                 val itemDelete = itemsAdapter.differ.currentList[viewHolder.adapterPosition]
                 viewModel.deleteItemOnSwipe(itemDelete, navArgs.category)
                 view?.let {
-                    Snackbar.make(it, "Deleted", Snackbar.LENGTH_SHORT).apply {
-                        setAction("Undo") {
+                    Snackbar.make(it, "Удалено", Snackbar.LENGTH_SHORT).apply {
+                        setAction("Отмена") {
                             viewModel.undoDeletedItem(itemDelete, navArgs.category)
                         }
                         show()
