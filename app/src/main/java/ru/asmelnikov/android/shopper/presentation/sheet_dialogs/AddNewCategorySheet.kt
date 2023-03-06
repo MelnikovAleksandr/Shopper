@@ -44,21 +44,22 @@ class AddNewCategorySheet : BottomSheetDialogFragment() {
 
                 val adapter = WordsCompleterAdapter(requireContext(), wordsList)
 
-                binding.categoryNameEditText.setAdapter(adapter)
+                binding.apply {
+                    categoryNameEditText.setAdapter(adapter)
+                    addButton.setOnClickListener {
 
-                binding.addButton.setOnClickListener {
+                        val nameCategory = binding.categoryNameEditText.text.toString()
+                        val categoryDrop = binding.dropDownAutoComplete.text.toString()
 
-                    val nameCategory = binding.categoryNameEditText.text.toString()
-                    val categoryDrop = binding.dropDownAutoComplete.text.toString()
+                        val word = createWord(nameCategory)
+                        if (!wordsList.contains(word)) viewModel.insertNewWord(word)
 
-                    val word = createWord(nameCategory)
-                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
-
-                    if (nameCategory.isEmpty()) {
-                        showErrorToast()
-                    } else {
-                        val category = createCategory(nameCategory, categoryDrop)
-                        addCategory(category)
+                        if (nameCategory.isEmpty()) {
+                            showErrorToast()
+                        } else {
+                            val category = createCategory(nameCategory, categoryDrop)
+                            addCategory(category)
+                        }
                     }
                 }
             }

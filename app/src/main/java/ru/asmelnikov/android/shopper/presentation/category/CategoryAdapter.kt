@@ -63,14 +63,15 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
             menu_button.setOnClickListener {
                 popupMenu(it, category)
             }
-        }
-        holder.itemView.setOnClickListener {
-            categoryActionListener.onItemProductsList(category)
-        }
 
-        holder.itemView.setOnLongClickListener {
-            categoryActionListener.onEditProductList(category)
-            true
+            setOnClickListener {
+                categoryActionListener.onItemProductsList(category)
+            }
+
+            setOnLongClickListener {
+                categoryActionListener.onEditProductList(category)
+                true
+            }
         }
     }
 
