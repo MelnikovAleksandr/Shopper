@@ -41,35 +41,34 @@ class EditCategorySheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.categoryNameEditText.setText(args.category.name)
-        binding.dropDownAutoComplete.setText(args.category.category)
-
         viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
 
             wordsList.let {
 
                 val adapter = WordsCompleterAdapter(requireContext(), wordsList)
 
-                binding.categoryNameEditText.setAdapter(adapter)
+                binding.apply {
+                    categoryNameEditText.setText(args.category.name)
+                    dropDownAutoComplete.setText(args.category.category)
+                    categoryNameEditText.setAdapter(adapter)
+                    addButton.setOnClickListener {
 
-                binding.addButton.setOnClickListener {
+                        val nameCategory = binding.categoryNameEditText.text.toString()
+                        val categoryDrop = binding.dropDownAutoComplete.text.toString()
 
-                    val nameCategory = binding.categoryNameEditText.text.toString()
-                    val categoryDrop = binding.dropDownAutoComplete.text.toString()
+                        val word = createWord(nameCategory)
+                        if (!wordsList.contains(word)) viewModel.insertNewWord(word)
 
-                    val word = createWord(nameCategory)
-                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
-
-                    if (nameCategory.isEmpty()) {
-                        showErrorToast()
-                    } else {
-                        val category = createCategory(args.category, nameCategory, categoryDrop)
-                        addCategory(category)
+                        if (nameCategory.isEmpty()) {
+                            showErrorToast()
+                        } else {
+                            val category = createCategory(args.category, nameCategory, categoryDrop)
+                            addCategory(category)
+                        }
                     }
                 }
             }
         }
-
     }
 
     override fun onResume() {

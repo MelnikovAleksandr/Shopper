@@ -48,15 +48,21 @@ class CategoryFragment : Fragment() {
         viewModel.categoryList.observe(this.viewLifecycleOwner) { category ->
             category.let {
                 var countOfDoneList = 0
-                categoryAdapter.differ.submitList(it)
-                binding.allListsTextView.text = category.size.toString()
                 category.map { category ->
                     if (category.allItems == category.doneItems && category.allItems != 0)
                         countOfDoneList++
                 }
-                binding.doneListsTextView.text = countOfDoneList.toString()
-
-                binding.emptyList.emptyListView.isVisible = category.isEmpty()
+                categoryAdapter.differ.submitList(it)
+                binding.apply {
+                    allListsTextView.text = category.size.toString()
+                    doneListsTextView.text = countOfDoneList.toString()
+                    emptyList.emptyListView.isVisible = category.isEmpty()
+                    floatingActionButton.setOnClickListener {
+                        val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
+                        findNavController().navigate(action)
+                    }
+                    floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255))
+                }
             }
         }
 
@@ -72,14 +78,6 @@ class CategoryFragment : Fragment() {
 
         recycler_view.clearOnScrollListeners()
         recycler_view.addOnScrollListener(scrollListener)
-
-
-        binding.floatingActionButton.setOnClickListener {
-            val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
-            findNavController().navigate(action)
-        }
-
-        binding.floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255))
 
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
