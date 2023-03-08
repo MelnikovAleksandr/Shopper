@@ -4,7 +4,7 @@
     android:id="@+id/drop_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fontFamily="@font/brokgauzefron"
+    android:fontFamily="sans-serif-thin"
     android:padding="16dp"
     android:textColor="@color/blue_green_crayola"
     android:textSize="16sp"

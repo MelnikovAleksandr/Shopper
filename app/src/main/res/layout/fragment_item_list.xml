@@ -10,13 +10,12 @@
         android:id="@+id/progress_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         app:indicatorColor="@color/amaranth_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:trackColor="@color/turkish_pink"
-        app:trackThickness="8dp"
+        app:trackThickness="16dp"
         tools:max="10"
         tools:progress="7" />
 
@@ -185,10 +184,14 @@
                 android:id="@+id/cost_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="870 ₽"
+                android:ellipsize="end"
+                android:lines="1"
+                android:paddingHorizontal="4dp"
+                android:singleLine="true"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="870 ₽" />
 
         </LinearLayout>
 

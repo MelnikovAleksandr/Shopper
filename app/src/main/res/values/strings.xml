@@ -21,6 +21,33 @@
         <item>Для детей</item>
         <item>Автомобиль</item>
         <item>Прочее</item>
+    </string-array>
+
+    <string-array name="units">
+        <item>штука</item>
+        <item>килограмм</item>
+        <item>грамм</item>
+        <item>тонна</item>
+        <item>литр</item>
+        <item>миллилитр</item>
+        <item>бутылка</item>
+        <item>упаковка</item>
+        <item>коробка</item>
+        <item>набор</item>
+        <item>пара</item>
+        <item>лист</item>
+        <item>рулон</item>
+        <item>метр</item>
+        <item>квадратный метр</item>
+        <item>кубический метр</item>
+        <item>сантиметр</item>
+        <item>квадратный сантиметр</item>
+        <item>кубический сантиметр</item>
+        <item>погонный метр</item>
+        <item>час</item>
+        <item>сутки</item>
+        <item>минута</item>
 
     </string-array>
+
 </resources>

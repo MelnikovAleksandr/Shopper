@@ -49,7 +49,13 @@ class ItemsListFragment : Fragment() {
 
         viewModel.allItems.observe(this.viewLifecycleOwner) {
             it.let {
+                var totalPrise = 0F
                 itemsAdapter.differ.submitList(it)
+                binding.costTextView.text
+                it.map { item ->
+                    totalPrise += item.price
+                }
+                binding.costTextView.text = "$totalPrise ₽"
             }
         }
 
