@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.slider.Slider
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.layout_count_selector.*
+import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentNewItemSheetBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.Item
@@ -31,6 +33,8 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
 
     private var countOfItems = 1
 
+    override fun getTheme() = R.style.AppBottomSheetDialogTheme
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,40 +49,61 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
 
         category = navArgs.category
 
-        plus_image_view.setOnClickListener {
-            if (countOfItems < 99)
-                countOfItems++
-            count_text_view.text = countOfItems.toString()
-        }
+        binding.apply {
+            itemsCountTextView.text = countOfItems.toString()
 
-        minus_image_view.setOnClickListener {
-            if (countOfItems > 1)
-                countOfItems--
-            count_text_view.text = countOfItems.toString()
-        }
+            plusCountButton.setOnClickListener {
+                if (countOfItems < 1000)
+                    countOfItems++
+                itemsCountTextView.text = countOfItems.toString()
+            }
 
-        viewModel.wordsList.observe(this.viewLifecycleOwner) { wordsList ->
+            minusCountButton.setOnClickListener {
+                if (countOfItems > 1)
+                    countOfItems--
+                itemsCountTextView.text = countOfItems.toString()
+            }
 
-            wordsList.let {
-                val adapter = WordsCompleterAdapter(requireContext(), wordsList)
-                binding.itemNameEditTextView.setAdapter(adapter)
-                binding.addItemButton.setOnClickListener {
-                    val nameItem = binding.itemNameEditTextView.text.toString()
-                    val countItem = binding.countView.countTextView.text.toString()
 
-                    val word = createWord(nameItem)
-                    if (!wordsList.contains(word)) viewModel.insertNewWord(word)
+            slider.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
+                itemsCountTextView.text = value.toInt().toString()
+                countOfItems = value.toInt()
 
-                    if (nameItem.isEmpty() || countItem.isEmpty()) {
-                        showErrorToast()
-                    } else {
-                        val item = createItem(nameItem, countItem)
-                        addItem(item)
-                        viewModel.updateInsertCategoryAllItemsAmount(category)
+            })
+            viewModel.wordsList.observe(viewLifecycleOwner) { wordsList ->
+                wordsList.let {
+                    val adapter = WordsCompleterAdapter(requireContext(), wordsList)
+                    itemNameEditText.setAdapter(adapter)
+
+                    addButton.setOnClickListener {
+                        val nameItem = itemNameEditText.text.toString()
+                        val countItem = itemsCountTextView.text.toString()
+                        var costItem = itemCostEditText.text.toString()
+                        val units = binding.dropDownAutoComplete.text.toString()
+
+                        val word = createWord(nameItem)
+                        if (!wordsList.contains(word)) viewModel.insertNewWord(word)
+
+                        if (nameItem.isEmpty() || countItem.isEmpty()) {
+                            showErrorToast()
+                        } else {
+                            costItem = if (costItem.isEmpty()) "0" else countItem
+                            val item = createItem(nameItem, countItem, costItem.toFloat(), units)
+                            addItem(item)
+                            viewModel.updateInsertCategoryAllItemsAmount(category)
+                        }
                     }
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val categoriesDropDown = resources.getStringArray(R.array.units)
+        val arrayAdapter =
+            ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
+        binding.dropDownAutoComplete.setAdapter(arrayAdapter)
     }
 
     private fun showErrorToast() {
@@ -94,14 +119,15 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
         return WordsForAutoComplete(word = word)
     }
 
-    private fun createItem(nameItem: String, countItem: String): Item {
+    private fun createItem(nameItem: String, countItem: String, cost: Float, unit: String): Item {
         return Item(
             id = 0,
             name = nameItem,
             count = countItem.toFloat(),
             bought = false,
             categoryId = navArgs.category.id,
-            price = 0F
+            price = cost,
+            units = unit
         )
     }
 

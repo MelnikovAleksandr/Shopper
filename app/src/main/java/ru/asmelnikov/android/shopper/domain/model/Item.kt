@@ -23,5 +23,6 @@ data class Item(
     val categoryId: Int,
     val count: Float,
     val price: Float = 0.0F,
+    val units: String,
     var bought: Boolean,
 ) : Parcelable
