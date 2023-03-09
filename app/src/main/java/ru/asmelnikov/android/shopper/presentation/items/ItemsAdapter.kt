@@ -1,8 +1,10 @@
 package ru.asmelnikov.android.shopper.presentation.items
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -39,19 +41,46 @@ class ItemsAdapter(
         val item = differ.currentList[position]
         holder.itemView.apply {
             item_name_text_view.text = item.name
-            count_text_view.text = item.count.toString()
-            check_box.isChecked = item.bought
+            item_count_text_view.text = item.count.toInt().toString()
+            item_cost_text_view.text = "${item.price} ₽"
+            item_units_text_view.text = item.units
+            checkbox.isChecked = item.bought
 
-            check_box.setOnClickListener {
-                item.bought = check_box.isChecked
+            menu_button.setOnClickListener {
+                popupMenu(it, item)
+            }
+
+            checkbox.setOnClickListener {
+                item.bought = checkbox.isChecked
                 itemActionListener.onItemEdit(item)
             }
 
-            item_constraint_layout.setOnLongClickListener {
+            main_item.setOnLongClickListener {
                 itemActionListener.onItemEditSheet(item)
                 true
             }
         }
+    }
+
+    private fun popupMenu(view: View, item: Item) {
+        val popupMenu = PopupMenu(view.context, view)
+        popupMenu.inflate(R.menu.category_item_popup_menu)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.edit_category -> {
+                    itemActionListener.onItemEditSheet(item)
+                    true
+                }
+                R.id.delete_category -> {
+                    itemActionListener.onItemDelete(item)
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu.setForceShowIcon(true)
+        popupMenu.gravity = Gravity.END
+        popupMenu.show()
     }
 
     override fun getItemCount(): Int {

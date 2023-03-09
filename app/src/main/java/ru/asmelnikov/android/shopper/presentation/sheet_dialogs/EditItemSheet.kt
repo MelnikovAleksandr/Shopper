@@ -78,7 +78,7 @@ class EditItemSheet : BottomSheetDialogFragment() {
                         val nameItem = itemNameEditText.text.toString()
                         val countItem = itemsCountTextView.text.toString()
                         var costItem = itemCostEditText.text.toString()
-                        val units = binding.dropDownAutoComplete.text.toString()
+                        val units = dropDownAutoComplete.text.toString()
 
                         val word = createWord(nameItem)
                         if (!wordsList.contains(word)) viewModel.insertNewWord(word)
@@ -86,8 +86,13 @@ class EditItemSheet : BottomSheetDialogFragment() {
                         if (nameItem.isEmpty() || countItem.isEmpty()) {
                             showErrorToast()
                         } else {
-                            costItem = if (costItem.isEmpty()) "0" else countItem
-                            val item = createItem(nameItem, countItem, costItem.toFloat(), units)
+                            costItem = costItem.ifEmpty { "0" }
+                            val item = createItem(
+                                nameItem = nameItem,
+                                countItem = countItem,
+                                cost = costItem.toFloat(),
+                                unit = units
+                            )
                             editItem(item)
                         }
                     }

@@ -1,10 +1,10 @@
 package ru.asmelnikov.android.shopper.presentation.items
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -70,7 +70,6 @@ class ItemsListFragment : Fragment() {
                         findNavController().navigate(action)
                     }
                     imageBinding(categoryImgView, navArgs.category)
-                    floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255))
                     categoryTextView.text = navArgs.category.name
                     categoryNameTextView.text = navArgs.category.category
                     itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
@@ -106,6 +105,38 @@ class ItemsListFragment : Fragment() {
                 }
             }
         }
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> floating_action_button.show()
+                    else -> floating_action_button.hide()
+                }
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        }
+
+        recycler_view.clearOnScrollListeners()
+        recycler_view.addOnScrollListener(scrollListener)
+    }
+
+    private fun showDeleteDialog(position: Int, item: Item) {
+        val builder = AlertDialog.Builder(this.requireContext())
+        builder.setTitle("Удалить элемент")
+        builder.setMessage("Вы уверены, что хотите удалить этот элемент?")
+        builder.setIcon(R.drawable.delete_ic)
+        builder.setPositiveButton("Да") { _, _ ->
+            viewModel.deleteItemOnSwipe(item, navArgs.category)
+            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("Отмена") { _, _ ->
+            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).show()
+        }
+        builder.setOnDismissListener {
+            itemsAdapter.notifyItemChanged(position)
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun initAdapter() {
@@ -121,6 +152,10 @@ class ItemsListFragment : Fragment() {
                         navArgs.category, item
                     )
                 findNavController().navigate(action)
+            }
+
+            override fun onItemDelete(item: Item) {
+                showDeleteDialog(0, item)
             }
         })
         recycler_view.apply {
