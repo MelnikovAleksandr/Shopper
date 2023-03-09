@@ -51,8 +51,10 @@ class ItemsAdapter(
             }
 
             checkbox.setOnClickListener {
+                it?.apply { isEnabled = false; postDelayed({ isEnabled = true }, 400) }
                 item.bought = checkbox.isChecked
                 itemActionListener.onItemEdit(item)
+
             }
 
             main_item.setOnLongClickListener {
