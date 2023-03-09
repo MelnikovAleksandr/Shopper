@@ -166,8 +166,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:fontFamily="sans-serif-thin"
+                android:gravity="center"
                 android:inputType="none"
-                android:text="штука"
+                android:text="ШТ"
                 android:textColor="@color/slate_grey"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>

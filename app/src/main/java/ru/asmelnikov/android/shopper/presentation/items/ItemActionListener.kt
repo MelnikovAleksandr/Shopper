@@ -8,4 +8,6 @@ interface ItemActionListener {
 
     fun onItemEditSheet(item: Item)
 
+    fun onItemDelete(item: Item)
+
 }

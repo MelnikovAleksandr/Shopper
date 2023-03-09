@@ -24,29 +24,30 @@
     </string-array>
 
     <string-array name="units">
-        <item>штука</item>
-        <item>килограмм</item>
-        <item>грамм</item>
-        <item>тонна</item>
-        <item>литр</item>
-        <item>миллилитр</item>
-        <item>бутылка</item>
-        <item>упаковка</item>
-        <item>коробка</item>
-        <item>набор</item>
-        <item>пара</item>
-        <item>лист</item>
-        <item>рулон</item>
-        <item>метр</item>
-        <item>квадратный метр</item>
-        <item>кубический метр</item>
-        <item>сантиметр</item>
-        <item>квадратный сантиметр</item>
-        <item>кубический сантиметр</item>
-        <item>погонный метр</item>
-        <item>час</item>
-        <item>сутки</item>
-        <item>минута</item>
+        <item>ШТ</item>
+        <item>КГ</item>
+        <item>ГР</item>
+        <item>ТН</item>
+        <item>Л</item>
+        <item>МЛ</item>
+        <item>БУТ</item>
+        <item>УП</item>
+        <item>КОР</item>
+        <item>ПАЧ</item>
+        <item>НАБ</item>
+        <item>ПАР</item>
+        <item>ЛИСТ</item>
+        <item>РУЛ</item>
+        <item>М</item>
+        <item>М2</item>
+        <item>М3</item>
+        <item>СМ</item>
+        <item>СМ2</item>
+        <item>СМ3</item>
+        <item>ПГ М</item>
+        <item>Ч</item>
+        <item>СУТ</item>
+        <item>МИН</item>
 
     </string-array>
 

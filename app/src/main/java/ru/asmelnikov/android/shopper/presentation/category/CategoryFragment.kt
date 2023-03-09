@@ -61,7 +61,6 @@ class CategoryFragment : Fragment() {
                         val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
                         findNavController().navigate(action)
                     }
-                    floatingActionButton.setColorFilter(Color.argb(255, 255, 255, 255))
                 }
             }
         }
