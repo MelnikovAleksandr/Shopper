@@ -46,11 +46,16 @@ class EditCategorySheet : BottomSheetDialogFragment() {
             wordsList.let {
 
                 val adapter = WordsCompleterAdapter(requireContext(), wordsList)
+                val categoriesDropDown = resources.getStringArray(R.array.categories)
+                val arrayAdapter =
+                    ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
 
                 binding.apply {
-                    categoryNameEditText.setText(args.category.name)
                     dropDownAutoComplete.setText(args.category.category)
+                    dropDownAutoComplete.setAdapter(arrayAdapter)
+
                     categoryNameEditText.setAdapter(adapter)
+                    categoryNameEditText.setText(args.category.name)
                     addButton.setOnClickListener {
 
                         val nameCategory = binding.categoryNameEditText.text.toString()
@@ -71,19 +76,15 @@ class EditCategorySheet : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        val categoriesDropDown = resources.getStringArray(R.array.categories)
-        val arrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
-        binding.dropDownAutoComplete.setAdapter(arrayAdapter)
-    }
-
     private fun showErrorToast() {
         Toast.makeText(context, "Пожалуйста заполните все поля", Toast.LENGTH_SHORT).show()
     }
 
-    private fun createCategory(category: Category, nameCategory: String, categoryName: String): Category {
+    private fun createCategory(
+        category: Category,
+        nameCategory: String,
+        categoryName: String
+    ): Category {
         return Category(
             id = category.id,
             name = nameCategory,

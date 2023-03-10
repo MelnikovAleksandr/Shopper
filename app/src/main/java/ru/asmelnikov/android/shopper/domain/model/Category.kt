@@ -13,5 +13,5 @@ data class Category(
     val name: String,
     var doneItems: Int,
     var allItems: Int,
-    var category: String
+    val category: String
 ) : Parcelable

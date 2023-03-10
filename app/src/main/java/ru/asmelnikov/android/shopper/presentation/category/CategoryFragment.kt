@@ -1,6 +1,5 @@
 package ru.asmelnikov.android.shopper.presentation.category
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.android.synthetic.main.fragment_category.floating_action_button
+import kotlinx.android.synthetic.main.fragment_category.recycler_view
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
+import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
 
 @AndroidEntryPoint
@@ -30,6 +31,8 @@ class CategoryFragment : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
 
     private val viewModel: CategoryViewModel by viewModels()
+
+    private val itemsViewModel: ItemsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +48,19 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
 
+        itemsViewModel.allItems.observe(this.viewLifecycleOwner) { items ->
+            binding.apply {
+                var totalPriceValue = 0
+                items.map { item ->
+                    totalPriceValue += item.price
+                }
+                totalPrice.text = "$totalPriceValue ₽"
+            }
+        }
+
         viewModel.categoryList.observe(this.viewLifecycleOwner) { category ->
             category.let {
+
                 var countOfDoneList = 0
                 category.map { category ->
                     if (category.allItems == category.doneItems && category.allItems != 0)
@@ -58,7 +72,8 @@ class CategoryFragment : Fragment() {
                     doneListsTextView.text = countOfDoneList.toString()
                     emptyList.emptyListView.isVisible = category.isEmpty()
                     floatingActionButton.setOnClickListener {
-                        val action = CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
+                        val action =
+                            CategoryFragmentDirections.actionCategoryFragmentToAddNewCategorySheet()
                         findNavController().navigate(action)
                     }
                 }
@@ -127,7 +142,7 @@ class CategoryFragment : Fragment() {
             }
 
             override fun onCategoryDelete(category: Category) {
-                showDeleteDialog(0, category)
+                showDeleteDialog(categoryAdapter.itemCount, category)
             }
 
         })

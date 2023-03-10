@@ -91,7 +91,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
                             val item = createItem(
                                 nameItem = nameItem,
                                 countItem = countItem,
-                                cost = costItem.toFloat(),
+                                cost = costItem.toInt(),
                                 unit = units
                             )
                             addItem(item)
@@ -124,11 +124,11 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
         return WordsForAutoComplete(word = word)
     }
 
-    private fun createItem(nameItem: String, countItem: String, cost: Float, unit: String): Item {
+    private fun createItem(nameItem: String, countItem: String, cost: Int, unit: String): Item {
         return Item(
             id = 0,
             name = nameItem,
-            count = countItem.toFloat(),
+            count = countItem.toInt(),
             bought = false,
             categoryId = navArgs.category.id,
             price = cost,

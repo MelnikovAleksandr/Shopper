@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.android.synthetic.main.fragment_category.floating_action_button
+import kotlinx.android.synthetic.main.fragment_category.recycler_view
+import kotlinx.android.synthetic.main.fragment_item_list.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentItemListBinding
 import ru.asmelnikov.android.shopper.domain.model.Item
@@ -47,61 +49,91 @@ class ItemsListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
 
-        viewModel.allItems.observe(this.viewLifecycleOwner) {
-            it.let {
-                var totalPrise = 0F
-                itemsAdapter.differ.submitList(it)
-                binding.costTextView.text
-                it.map { item ->
-                    totalPrise += item.price
+        viewModel.allItemsByCategory.observe(this.viewLifecycleOwner) { items ->
+
+            binding.apply {
+                var totalPrice = 0
+                itemsAdapter.differ.submitList(items)
+                items.map { item ->
+                    totalPrice += item.price
                 }
-                binding.costTextView.text = "$totalPrise ₽"
+                costTextView.text = "$totalPrice ₽"
+                allCheckBox.isChecked =
+                    navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0
+
+                allCheckBox.setOnClickListener {
+                    it?.apply { isEnabled = false; postDelayed({ isEnabled = true }, 400) }
+                    if (all_check_box.isChecked) {
+                        items.map { item ->
+                            if (!item.bought) {
+                                item.bought = true
+                                viewModel.updateCategoryDoneItemsValue(
+                                    navArgs.category,
+                                    item.bought
+                                )
+                            }
+                            itemsAdapter.notifyDataSetChanged()
+                            viewModel.editItem(item)
+                        }
+                    } else {
+                        items.map { item ->
+                            if (item.bought) {
+                                item.bought = false
+                                viewModel.updateCategoryDoneItemsValue(
+                                    navArgs.category,
+                                    item.bought
+                                )
+                            }
+                            itemsAdapter.notifyDataSetChanged()
+                            viewModel.editItem(item)
+                        }
+                    }
+                }
             }
         }
 
-        viewModel.categoryList.observe(this.viewLifecycleOwner) { category ->
-            category.let {
-                binding.apply {
-                    floatingActionButton.setOnClickListener {
-                        val action =
-                            ItemsListFragmentDirections.actionItemsListFragmentToAddNewItemSheet(
-                                navArgs.category
-                            )
-                        findNavController().navigate(action)
-                    }
-                    imageBinding(categoryImgView, navArgs.category)
-                    categoryTextView.text = navArgs.category.name
-                    categoryNameTextView.text = navArgs.category.category
-                    itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
-                    progressIndicator.max = navArgs.category.allItems
-                    progressIndicator.progress = navArgs.category.doneItems
-                    if (navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0) {
-                        progressIndicator.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.teal_700
-                            )
+        viewModel.categoryList.observe(this.viewLifecycleOwner) {
+            binding.apply {
+                floatingActionButton.setOnClickListener {
+                    val action =
+                        ItemsListFragmentDirections.actionItemsListFragmentToAddNewItemSheet(
+                            navArgs.category
                         )
-                        itemsCount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.slate_grey
-                            )
+                    findNavController().navigate(action)
+                }
+                imageBinding(categoryImgView, navArgs.category)
+                categoryTextView.text = navArgs.category.name
+                categoryNameTextView.text = navArgs.category.category
+                itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
+                progressIndicator.max = navArgs.category.allItems
+                progressIndicator.progress = navArgs.category.doneItems
+                progressText.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
+                if (navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0) {
+                    progressIndicator.setIndicatorColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.teal_700
                         )
-                    } else {
-                        progressIndicator.setIndicatorColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.amaranth_purple
-                            )
+                    )
+                    itemsCount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.slate_grey
                         )
-                        itemsCount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.amaranth_purple
-                            )
+                    )
+                } else {
+                    progressIndicator.setIndicatorColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.amaranth_purple
                         )
-                    }
+                    )
+                    itemsCount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.amaranth_purple
+                        )
+                    )
                 }
             }
         }
@@ -155,7 +187,7 @@ class ItemsListFragment : Fragment() {
             }
 
             override fun onItemDelete(item: Item) {
-                showDeleteDialog(0, item)
+                showDeleteDialog(itemsAdapter.itemCount, item)
             }
         })
         recycler_view.apply {

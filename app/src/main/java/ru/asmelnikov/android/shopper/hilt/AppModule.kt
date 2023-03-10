@@ -58,7 +58,8 @@ object AppModule {
             addItemUseCase = AddItemUseCase(repository),
             deleteItemUseCase = DeleteItemUseCase(repository),
             getItemUseCase = GetItemUseCase(repository),
-            editItemUseCase = EditItemUseCase(repository)
+            editItemUseCase = EditItemUseCase(repository),
+            getAllItemsListUseCase = GetAllItemsListUseCase(repository)
         )
     }
 
