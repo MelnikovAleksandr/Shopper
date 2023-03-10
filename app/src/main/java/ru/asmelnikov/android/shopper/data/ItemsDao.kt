@@ -10,6 +10,9 @@ interface ItemsDao {
     @Query("SELECT* FROM item WHERE categoryId = :categoryId ORDER BY bought")
     fun getItemsList(categoryId: Int): Flow<List<Item>>
 
+    @Query("SELECT* FROM item")
+    fun getAllItemsList(): Flow<List<Item>>
+
     @Query("SELECT * FROM item WHERE id - :id")
     fun getItem(id: Int): Flow<Item>
 

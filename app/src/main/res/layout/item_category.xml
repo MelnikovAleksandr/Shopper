@@ -34,8 +34,11 @@
             android:id="@+id/progress_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="sans-serif-thin"
             android:gravity="center"
+            android:lines="1"
+            android:singleLine="true"
             android:textColor="@color/slate_grey"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -68,11 +71,11 @@
             android:id="@+id/category_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            tools:background="@drawable/pet_ic"
             android:layout_marginHorizontal="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/menu_button"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/pet_ic" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/menu_button"
@@ -84,8 +87,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </com.google.android.material.card.MaterialCardView>

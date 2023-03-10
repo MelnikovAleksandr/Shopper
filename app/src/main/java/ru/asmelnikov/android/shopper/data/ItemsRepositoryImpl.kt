@@ -10,6 +10,10 @@ class ItemsRepositoryImpl(private val itemsDao: ItemsDao) : ItemRepository {
         return itemsDao.getItemsList(categoryId)
     }
 
+    override fun getAllItemsList(): Flow<List<Item>> {
+        return itemsDao.getAllItemsList()
+    }
+
     override suspend fun addItem(item: Item) {
         itemsDao.addItem(item)
     }

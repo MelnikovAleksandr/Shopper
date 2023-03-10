@@ -43,7 +43,7 @@ class EditItemSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var countOfItems = args.item.count.toInt()
+        var countOfItems = args.item.count
 
         binding.apply {
             itemNameEditText.setText(args.item.name)
@@ -90,7 +90,7 @@ class EditItemSheet : BottomSheetDialogFragment() {
                             val item = createItem(
                                 nameItem = nameItem,
                                 countItem = countItem,
-                                cost = costItem.toFloat(),
+                                cost = costItem.toInt(),
                                 unit = units
                             )
                             editItem(item)
@@ -113,11 +113,11 @@ class EditItemSheet : BottomSheetDialogFragment() {
         Toast.makeText(context, "Please enter all information", Toast.LENGTH_SHORT).show()
     }
 
-    private fun createItem(nameItem: String, countItem: String, cost: Float, unit: String): Item {
+    private fun createItem(nameItem: String, countItem: String, cost: Int, unit: String): Item {
         return Item(
             id = args.item.id,
             name = nameItem,
-            count = countItem.toFloat(),
+            count = countItem.toInt(),
             bought = args.item.bought,
             categoryId = args.item.categoryId,
             price = cost,

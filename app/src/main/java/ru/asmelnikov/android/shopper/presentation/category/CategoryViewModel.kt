@@ -42,12 +42,6 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun getCategoryById(categoryId: Int) {
-        viewModelScope.launch {
-            categoryUseCases.getCategoryUseCase(categoryId)
-        }
-    }
-
     fun editCategory(category: Category) {
         viewModelScope.launch {
             categoryUseCases.editCategoryUseCase(category)

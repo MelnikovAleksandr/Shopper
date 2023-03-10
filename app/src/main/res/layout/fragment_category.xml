@@ -87,6 +87,9 @@
                     android:id="@+id/all_lists_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:text="35"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -124,6 +127,9 @@
                     android:id="@+id/done_lists_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:text="14"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -158,12 +164,16 @@
                     android:textStyle="bold" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/total_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3700 ₽"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="3700 ₽" />
 
             </LinearLayout>
 
@@ -195,11 +205,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:tint="@color/white"
         android:src="@drawable/add_cart_ic"
         app:fabCustomSize="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="50dp" />
+        app:maxImageSize="50dp"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

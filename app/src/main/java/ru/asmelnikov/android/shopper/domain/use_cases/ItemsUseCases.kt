@@ -4,6 +4,7 @@ import ru.asmelnikov.android.shopper.domain.use_cases.items.*
 
 data class ItemsUseCases(
     val getItemsListUseCase: GetItemsListUseCase,
+    val getAllItemsListUseCase: GetAllItemsListUseCase,
     val deleteItemUseCase: DeleteItemUseCase,
     val addItemUseCase: AddItemUseCase,
     val getItemUseCase: GetItemUseCase,

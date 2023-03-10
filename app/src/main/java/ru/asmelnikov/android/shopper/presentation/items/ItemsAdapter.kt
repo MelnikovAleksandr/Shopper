@@ -1,5 +1,6 @@
 package ru.asmelnikov.android.shopper.presentation.items
 
+import android.graphics.Paint
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -41,10 +42,16 @@ class ItemsAdapter(
         val item = differ.currentList[position]
         holder.itemView.apply {
             item_name_text_view.text = item.name
-            item_count_text_view.text = item.count.toInt().toString()
+            item_count_text_view.text = item.count.toString()
             item_cost_text_view.text = "${item.price} ₽"
             item_units_text_view.text = item.units
             checkbox.isChecked = item.bought
+
+            item_name_text_view.paintFlags = if (item.bought) {
+                Paint.STRIKE_THRU_TEXT_FLAG
+            } else {
+                0
+            }
 
             menu_button.setOnClickListener {
                 popupMenu(it, item)
@@ -53,8 +60,12 @@ class ItemsAdapter(
             checkbox.setOnClickListener {
                 it?.apply { isEnabled = false; postDelayed({ isEnabled = true }, 400) }
                 item.bought = checkbox.isChecked
+                item_name_text_view.paintFlags = if (item.bought) {
+                    Paint.STRIKE_THRU_TEXT_FLAG
+                } else {
+                    0
+                }
                 itemActionListener.onItemEdit(item)
-
             }
 
             main_item.setOnLongClickListener {

@@ -21,8 +21,11 @@ class ItemsViewModel @Inject constructor(
 
     val category = state.get<Category>(CATEGORY_STATE_KEY)
 
-    val allItems: LiveData<List<Item>> =
+    val allItemsByCategory: LiveData<List<Item>> =
         itemsUseCases.getItemsListUseCase(category?.id ?: 0).asLiveData()
+
+    val allItems: LiveData<List<Item>> =
+        itemsUseCases.getAllItemsListUseCase().asLiveData()
 
     val categoryList: LiveData<List<Category>> =
         categoryUseCase.getCategoryListUseCase().asLiveData()
