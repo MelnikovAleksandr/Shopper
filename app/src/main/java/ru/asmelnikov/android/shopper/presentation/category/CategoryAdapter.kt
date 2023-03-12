@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -41,6 +42,10 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = differ.currentList[position]
         holder.itemView.apply {
+
+            val animation: Animation =
+                android.view.animation.AnimationUtils.loadAnimation(context, R.anim.anim)
+            startAnimation(animation)
 
             imageBinding(category_img, category)
 

@@ -113,10 +113,10 @@ class CategoryFragment : Fragment() {
         builder.setIcon(R.drawable.delete_ic)
         builder.setPositiveButton("Да") { _, _ ->
             viewModel.deleteCategory(category)
-            Snackbar.make(requireView(), "Deleted", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Удалено", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
         }
         builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Undelete", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
             categoryAdapter.notifyItemChanged(position)

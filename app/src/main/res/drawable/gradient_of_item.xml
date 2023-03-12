@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false">
+        <shape>
+            <gradient android:centerColor="@color/blue_green_crayola" android:endColor="@color/heather_purple" android:startColor="@color/periwinkle_crayola" android:type="linear" />
+        </shape>
+    </item>
+
     <item>
         <shape>
-            <gradient
-                android:centerColor="@color/blue_green_crayola"
-                android:endColor="@color/heather_purple"
-                android:startColor="@color/periwinkle_crayola"
-                android:type="linear" />
+            <solid android:color="@color/heather_purple" />
         </shape>
     </item>
 </selector>

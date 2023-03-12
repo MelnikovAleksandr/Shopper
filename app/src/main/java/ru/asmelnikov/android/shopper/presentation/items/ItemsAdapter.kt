@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -41,6 +42,11 @@ class ItemsAdapter(
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
         val item = differ.currentList[position]
         holder.itemView.apply {
+
+            val animation: Animation =
+                android.view.animation.AnimationUtils.loadAnimation(context, R.anim.anim)
+            startAnimation(animation)
+
             item_name_text_view.text = item.name
             item_count_text_view.text = item.count.toString()
             item_cost_text_view.text = "${item.price} ₽"

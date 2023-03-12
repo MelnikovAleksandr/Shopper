@@ -158,10 +158,10 @@ class ItemsListFragment : Fragment() {
         builder.setIcon(R.drawable.delete_ic)
         builder.setPositiveButton("Да") { _, _ ->
             viewModel.deleteItemOnSwipe(item, navArgs.category)
-            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
         }
         builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
             itemsAdapter.notifyItemChanged(position)
@@ -203,12 +203,13 @@ class ItemsListFragment : Fragment() {
                 val itemDelete = itemsAdapter.differ.currentList[viewHolder.adapterPosition]
                 viewModel.deleteItemOnSwipe(itemDelete, navArgs.category)
                 view?.let {
-                    Snackbar.make(it, "Удалено", Snackbar.LENGTH_SHORT).apply {
-                        setAction("Отмена") {
+                    Snackbar.make(it, "Удалено", Snackbar.LENGTH_SHORT)
+                        .setAnchorView(floating_action_button)
+                        .setAction("Отмена") {
                             viewModel.undoDeletedItem(itemDelete, navArgs.category)
                         }
-                        show()
-                    }
+                        .show()
+
                 }
             }
         }
