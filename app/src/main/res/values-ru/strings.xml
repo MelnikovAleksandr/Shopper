@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shopper</string>
+    <string name="app_name">Шоппер</string>
 
     <string-array name="categories">
         <item>Аптека</item>

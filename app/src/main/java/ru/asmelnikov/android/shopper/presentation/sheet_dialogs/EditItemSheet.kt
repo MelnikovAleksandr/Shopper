@@ -110,7 +110,7 @@ class EditItemSheet : BottomSheetDialogFragment() {
     }
 
     private fun showErrorToast() {
-        Toast.makeText(context, "Please enter all information", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Пожалуйста заполните все поля", Toast.LENGTH_SHORT).show()
     }
 
     private fun createItem(nameItem: String, countItem: String, cost: Int, unit: String): Item {
