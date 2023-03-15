@@ -13,14 +13,14 @@
       android:pathData="M33,35m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/turkish_pink"
+      android:fillColor="@color/light_pink"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M33,35m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/heather_purple"
+      android:fillColor="@color/main_pink"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path
@@ -48,7 +48,7 @@
       android:pathData="M40.54,30l-2.83,-2.83l-4.75,4.75l-4.75,-4.75l-2.83,2.83l4.75,4.75l-4.75,4.75l2.83,2.83l4.75,-4.75l4.75,4.75l2.83,-2.83l-4.75,-4.75l4.75,-4.75z"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/amaranth_purple"
+      android:fillColor="@color/bright_pink"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
 </vector>

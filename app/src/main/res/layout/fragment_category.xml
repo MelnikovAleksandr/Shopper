@@ -10,7 +10,7 @@
         android:id="@+id/view_header"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/slate_grey"
+        android:background="@color/view_background"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -21,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-thin"
         android:text="Shopper - списки покупок"
-        android:textColor="@color/white"
+        android:textColor="@color/main_title_color"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@color/blue_green_crayola"
+        app:cardBackgroundColor="@color/main_color"
         app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="@id/view_header"
         app:layout_constraintTop_toBottomOf="@id/view_header">
@@ -79,7 +79,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-thin"
                     android:text="Списки: "
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:text="35"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -119,7 +119,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-thin"
                     android:text="Закончены: "
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                     android:lines="1"
                     android:singleLine="true"
                     android:text="14"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-thin"
                     android:text="Стоимость: "
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -170,7 +170,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:singleLine="true"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_title_color"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="3700 ₽" />

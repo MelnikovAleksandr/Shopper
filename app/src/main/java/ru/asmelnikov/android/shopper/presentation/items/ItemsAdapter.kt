@@ -43,10 +43,6 @@ class ItemsAdapter(
         val item = differ.currentList[position]
         holder.itemView.apply {
 
-            val animation: Animation =
-                android.view.animation.AnimationUtils.loadAnimation(context, R.anim.anim)
-            startAnimation(animation)
-
             item_name_text_view.text = item.name
             item_count_text_view.text = item.count.toString()
             item_cost_text_view.text = "${item.price} ₽"
@@ -65,16 +61,15 @@ class ItemsAdapter(
 
             checkbox.setOnClickListener {
                 it?.apply { isEnabled = false; postDelayed({ isEnabled = true }, 400) }
-                item.bought = checkbox.isChecked
                 item_name_text_view.paintFlags = if (item.bought) {
                     Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
                     0
                 }
-                itemActionListener.onItemEdit(item)
+                itemActionListener.onItemEdit(createNewItem(item, checkbox.isChecked))
             }
 
-            main_item.setOnLongClickListener {
+            setOnLongClickListener {
                 itemActionListener.onItemEditSheet(item)
                 true
             }
@@ -100,6 +95,18 @@ class ItemsAdapter(
         popupMenu.setForceShowIcon(true)
         popupMenu.gravity = Gravity.END
         popupMenu.show()
+    }
+
+    private fun createNewItem(item: Item, bought: Boolean): Item {
+        return Item(
+            id = item.id,
+            categoryId = item.categoryId,
+            name = item.name,
+            count = item.count,
+            price = item.price,
+            units = item.units,
+            bought = bought
+        )
     }
 
     override fun getItemCount(): Int {

@@ -62,7 +62,7 @@
       android:pathData="M31.75,18m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="#a9ba5a"
+      android:fillColor="@color/indicator_done_green"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path

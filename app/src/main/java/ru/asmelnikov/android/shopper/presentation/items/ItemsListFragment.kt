@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,26 +67,22 @@ class ItemsListFragment : Fragment() {
                     if (all_check_box.isChecked) {
                         items.map { item ->
                             if (!item.bought) {
-                                item.bought = true
+                                viewModel.editItem(createNewItem(item, true))
                                 viewModel.updateCategoryDoneItemsValue(
                                     navArgs.category,
-                                    item.bought
+                                    true
                                 )
                             }
-                            itemsAdapter.notifyDataSetChanged()
-                            viewModel.editItem(item)
                         }
                     } else {
                         items.map { item ->
                             if (item.bought) {
-                                item.bought = false
+                                viewModel.editItem(createNewItem(item, false))
                                 viewModel.updateCategoryDoneItemsValue(
                                     navArgs.category,
-                                    item.bought
+                                    false
                                 )
                             }
-                            itemsAdapter.notifyDataSetChanged()
-                            viewModel.editItem(item)
                         }
                     }
                 }
@@ -101,7 +98,7 @@ class ItemsListFragment : Fragment() {
                         )
                     findNavController().navigate(action)
                 }
-                imageBinding(categoryImgView, navArgs.category)
+                imageBinding(categoryImgView, navArgs.category, requireContext())
                 categoryTextView.text = navArgs.category.name
                 categoryNameTextView.text = navArgs.category.category
                 itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
@@ -112,26 +109,26 @@ class ItemsListFragment : Fragment() {
                     progressIndicator.setIndicatorColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.teal_700
+                            R.color.indicator_done_green
                         )
                     )
                     itemsCount.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.slate_grey
+                            R.color.second_main
                         )
                     )
                 } else {
                     progressIndicator.setIndicatorColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.amaranth_purple
+                            R.color.bright_pink
                         )
                     )
                     itemsCount.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.amaranth_purple
+                            R.color.bright_pink
                         )
                     )
                 }
@@ -158,10 +155,12 @@ class ItemsListFragment : Fragment() {
         builder.setIcon(R.drawable.delete_ic)
         builder.setPositiveButton("Да") { _, _ ->
             viewModel.deleteItemOnSwipe(item, navArgs.category)
-            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
+            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT)
+                .setAnchorView(floating_action_button).show()
         }
         builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
+            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT)
+                .setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
             itemsAdapter.notifyItemChanged(position)
@@ -193,6 +192,10 @@ class ItemsListFragment : Fragment() {
         recycler_view.apply {
             adapter = itemsAdapter
             layoutManager = LinearLayoutManager(activity)
+            val itemAnimator = binding.recyclerView.itemAnimator
+            if (itemAnimator is DefaultItemAnimator) {
+                itemAnimator.supportsChangeAnimations = false
+            }
         }
         swipeToDelete(binding.recyclerView)
     }
@@ -215,6 +218,18 @@ class ItemsListFragment : Fragment() {
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun createNewItem(item: Item, bought: Boolean): Item {
+        return Item(
+            id = item.id,
+            categoryId = item.categoryId,
+            name = item.name,
+            count = item.count,
+            price = item.price,
+            units = item.units,
+            bought = bought
+        )
     }
 
     override fun onDestroyView() {

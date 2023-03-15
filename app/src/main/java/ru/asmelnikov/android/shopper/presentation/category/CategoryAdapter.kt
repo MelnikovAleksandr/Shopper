@@ -47,7 +47,7 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
                 android.view.animation.AnimationUtils.loadAnimation(context, R.anim.anim)
             startAnimation(animation)
 
-            imageBinding(category_img, category)
+            imageBinding(category_img, category, context)
 
             progress_indicator.max = category.allItems
             progress_indicator.progress = category.doneItems
@@ -57,11 +57,17 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
                 progress_indicator.setIndicatorColor(
                     ContextCompat.getColor(
                         context,
-                        R.color.teal_700
+                        R.color.indicator_done_green
                     )
                 )
                 category_item_name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             } else {
+                progress_indicator.setIndicatorColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.bright_pink
+                    )
+                )
                 category_item_name.paintFlags = 0
             }
 

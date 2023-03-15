@@ -13,14 +13,14 @@
       android:pathData="M33,34m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/blue_green_crayola"
+      android:fillColor="@color/main_color"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path
       android:pathData="M33,34m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/slate_grey"
+      android:fillColor="@color/second_main"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path
@@ -34,7 +34,7 @@
       android:pathData="M32.4,43.23l-8.4,-9.23l5,0l2.6,2.77l5.63,-10.77l4.77,0l-9.6,17.23z"
       android:strokeLineJoin="round"
       android:strokeWidth="2"
-      android:fillColor="@color/blue_green_crayola"
+      android:fillColor="@color/main_color"
       android:strokeColor="#4c241d"
       android:strokeLineCap="round"/>
   <path
