@@ -10,7 +10,7 @@
         android:layout_height="2dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/slate_grey"
+        app:cardBackgroundColor="@color/second_main"
         app:cardCornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:text="Введите новое название и (или) выберите новую категорию"
-        android:textColor="@color/slate_grey"
+        android:textColor="@color/second_main"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,11 +41,11 @@
         android:fontFamily="sans-serif-thin"
         android:hint="Введите название"
         android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-        app:boxStrokeColor="@color/blue_green_crayola"
+        app:boxStrokeColor="@color/main_color"
         app:counterEnabled="true"
         app:counterMaxLength="15"
         app:errorEnabled="true"
-        app:hintTextColor="@color/blue_green_crayola"
+        app:hintTextColor="@color/main_color"
         app:layout_constraintTop_toBottomOf="@id/title_text_view">
 
         <AutoCompleteTextView
@@ -58,7 +58,7 @@
             android:inputType="textNoSuggestions|textCapSentences|textVisiblePassword"
             android:maxLength="15"
             android:paddingHorizontal="12dp"
-            android:textColor="@color/slate_grey"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:errorEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,8 +72,8 @@
         android:fontFamily="sans-serif-thin"
         android:hint="Выберети категорию"
         android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu"
-        app:boxStrokeColor="@color/blue_green_crayola"
-        app:hintTextColor="@color/blue_green_crayola"
+        app:boxStrokeColor="@color/main_color"
+        app:hintTextColor="@color/main_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category_name_edit_layout">
@@ -85,7 +85,7 @@
             android:fontFamily="sans-serif-thin"
             android:inputType="none"
             android:text="Продукты"
-            android:textColor="@color/slate_grey"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,10 +96,11 @@
         android:layout_height="64dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="16dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:background="@drawable/gradient_background"
         android:fontFamily="sans-serif-thin"
         android:text="ИЗМЕНИТЬ"
-        android:textColor="@color/slate_grey"
+        android:textColor="@color/second_main"
         android:textSize="24sp"
         android:textStyle="bold"
         app:backgroundTint="@null"

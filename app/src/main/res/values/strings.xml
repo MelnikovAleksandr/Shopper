@@ -2,51 +2,51 @@
     <string name="app_name">Shopper</string>
 
     <string-array name="categories">
-        <item>Аптека</item>
-        <item>Алкоголь</item>
-        <item>Продукты</item>
-        <item>Супермаркет</item>
-        <item>Косметика</item>
-        <item>Хозяйственный</item>
-        <item>Питомцы</item>
-        <item>Сад-огород</item>
-        <item>Одежда</item>
-        <item>Книги</item>
-        <item>Инструменты</item>
-        <item>Доставка</item>
-        <item>Бытовая техника</item>
-        <item>Мебель</item>
-        <item>Спорт</item>
-        <item>Для детей</item>
-        <item>Автомобиль</item>
-        <item>Прочее</item>
+        <item>Drugstore</item>
+        <item>Alcohol</item>
+        <item>Products</item>
+        <item>Supermarket</item>
+        <item>Cosmetics</item>
+        <item>Household</item>
+        <item>Pets</item>
+        <item>Garden</item>
+        <item>Clothing</item>
+        <item>Books</item>
+        <item>Tools</item>
+        <item>Delivery</item>
+        <item>Household appliances</item>
+        <item>Furniture</item>
+        <item>Sports</item>
+        <item>For children</item>
+        <item>Car</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="units">
-        <item>ШТ</item>
-        <item>КГ</item>
-        <item>ГР</item>
-        <item>ТН</item>
-        <item>Л</item>
-        <item>МЛ</item>
-        <item>БУТ</item>
-        <item>УП</item>
-        <item>КОР</item>
-        <item>ПАЧ</item>
-        <item>НАБ</item>
-        <item>ПАР</item>
-        <item>ЛИСТ</item>
-        <item>РУЛ</item>
-        <item>М</item>
-        <item>М2</item>
-        <item>М3</item>
-        <item>СМ</item>
-        <item>СМ2</item>
-        <item>СМ3</item>
-        <item>ПГ М</item>
-        <item>Ч</item>
-        <item>СУТ</item>
-        <item>МИН</item>
+        <item>UN</item>
+        <item>KILO</item>
+        <item>GR</item>
+        <item>T</item>
+        <item>L</item>
+        <item>ML</item>
+        <item>BOT</item>
+        <item>WRAP</item>
+        <item>BOX</item>
+        <item>PACK</item>
+        <item>SET</item>
+        <item>PAIR</item>
+        <item>FOX</item>
+        <item>ROLL</item>
+        <item>M</item>
+        <item>M2</item>
+        <item>M3</item>
+        <item>CM</item>
+        <item>CM2</item>
+        <item>CM3</item>
+        <item>RUN M</item>
+        <item>H</item>
+        <item>DAYS</item>
+        <item>MIN</item>
     </string-array>
 
 </resources>

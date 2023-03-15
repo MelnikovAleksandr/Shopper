@@ -13,7 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_background">
+        android:background="@drawable/gradient_background"
+        android:foreground="?attr/selectableItemBackground">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_indicator"
@@ -21,12 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:max="10"
-            app:indicatorColor="@color/amaranth_purple"
+            app:indicatorColor="@color/bright_pink"
             app:indicatorSize="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:trackColor="@color/turkish_pink"
+            app:trackColor="@color/light_pink"
             app:trackThickness="8dp"
             tools:progress="7" />
 
@@ -39,7 +40,7 @@
             android:gravity="center"
             android:lines="1"
             android:singleLine="true"
-            android:textColor="@color/slate_grey"
+            android:textColor="@color/second_main"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/progress_indicator"
@@ -58,7 +59,7 @@
             android:fontFamily="sans-serif-thin"
             android:lines="1"
             android:singleLine="true"
-            android:textColor="@color/slate_grey"
+            android:textColor="@color/second_main"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,6 +84,7 @@
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/ic_round_density_small_24"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

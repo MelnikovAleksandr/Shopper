@@ -11,7 +11,7 @@
         android:layout_height="2dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/slate_grey"
+        app:cardBackgroundColor="@color/second_main"
         app:cardCornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:text="Измените поля"
-        android:textColor="@color/slate_grey"
+        android:textColor="@color/second_main"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,11 +42,11 @@
         android:fontFamily="sans-serif-thin"
         android:hint="Введите название"
         android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-        app:boxStrokeColor="@color/blue_green_crayola"
+        app:boxStrokeColor="@color/main_color"
         app:counterEnabled="true"
         app:counterMaxLength="15"
         app:errorEnabled="true"
-        app:hintTextColor="@color/blue_green_crayola"
+        app:hintTextColor="@color/main_color"
         app:layout_constraintTop_toBottomOf="@id/title_text_view">
 
         <AutoCompleteTextView
@@ -59,6 +59,7 @@
             android:inputType="textNoSuggestions|textCapSentences|textVisiblePassword"
             android:maxLength="15"
             android:paddingHorizontal="12dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:errorEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,6 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:background="@drawable/minus_button_gradient_background"
             android:clickable="true"
             app:backgroundTint="@null"
@@ -95,7 +97,7 @@
             android:lines="1"
             android:singleLine="true"
             android:text="1"
-            android:textColor="@color/slate_grey"
+            android:textColor="@color/second_main"
             android:textSize="48sp"
             android:textStyle="bold"
             tools:text="900" />
@@ -105,6 +107,7 @@
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:background="@drawable/gradient_background"
             android:clickable="true"
             app:backgroundTint="@null"
@@ -122,16 +125,16 @@
         android:stepSize="100"
         android:valueFrom="0"
         android:valueTo="1000"
-        app:haloColor="@color/blue_green_crayola"
+        app:haloColor="@color/main_color"
         app:labelBehavior="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/items_counter_layout"
-        app:thumbColor="@color/blue_green_crayola"
+        app:thumbColor="@color/main_color"
         app:thumbRadius="15dp"
-        app:tickColorActive="@color/slate_grey"
-        app:trackColorActive="@color/blue_green_crayola"
-        app:trackColorInactive="@color/periwinkle_crayola"
+        app:tickColorActive="@color/second_main"
+        app:trackColorActive="@color/main_color"
+        app:trackColorInactive="@color/light_gray"
         app:trackHeight="10dp"
         tools:value="300" />
 
@@ -158,8 +161,8 @@
             android:fontFamily="sans-serif-thin"
             android:hint="Единица измерения"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu"
-            app:boxStrokeColor="@color/blue_green_crayola"
-            app:hintTextColor="@color/blue_green_crayola">
+            app:boxStrokeColor="@color/main_color"
+            app:hintTextColor="@color/main_color">
 
             <AutoCompleteTextView
                 android:id="@+id/drop_down_auto_complete"
@@ -169,7 +172,7 @@
                 android:gravity="center"
                 android:inputType="none"
                 android:text="ШТ"
-                android:textColor="@color/slate_grey"
+                android:textColor="@color/second_main"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,11 +186,11 @@
             android:fontFamily="sans-serif-thin"
             android:hint="Стоимость ₽"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-            app:boxStrokeColor="@color/blue_green_crayola"
+            app:boxStrokeColor="@color/main_color"
             app:counterEnabled="true"
             app:counterMaxLength="6"
             app:errorEnabled="true"
-            app:hintTextColor="@color/blue_green_crayola">
+            app:hintTextColor="@color/main_color">
 
             <AutoCompleteTextView
                 android:id="@+id/item_cost_edit_text"
@@ -199,6 +202,7 @@
                 android:inputType="number"
                 android:maxLength="6"
                 android:paddingHorizontal="12dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 app:errorEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -213,10 +217,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:background="@drawable/vertical_gradient_background"
         android:fontFamily="sans-serif-thin"
         android:text="ИЗМЕНИТЬ"
-        android:textColor="@color/slate_grey"
+        android:textColor="@color/second_main"
         android:textSize="24sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
