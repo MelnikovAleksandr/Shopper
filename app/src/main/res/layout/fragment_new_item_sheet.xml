@@ -1,233 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="500dp"
+    android:orientation="vertical">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/tap_line"
-        android:layout_width="100dp"
-        android:layout_height="2dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/second_main"
-        app:cardCornerRadius="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/title_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-thin"
-        android:gravity="center"
-        android:text="Заполните поля"
-        android:textColor="@color/second_main"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tap_line" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/item_name_edit_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-thin"
-        android:hint="Введите название"
-        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-        app:boxStrokeColor="@color/main_color"
-        app:counterEnabled="true"
-        app:counterMaxLength="15"
-        app:errorEnabled="true"
-        app:hintTextColor="@color/main_color"
-        app:layout_constraintTop_toBottomOf="@id/title_text_view">
+        android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/item_name_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:completionThreshold="1"
-            android:fontFamily="sans-serif-thin"
-            android:imeOptions="actionNext"
-            android:inputType="textNoSuggestions|textCapSentences|textVisiblePassword"
-            android:maxLength="15"
-            android:paddingHorizontal="12dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:errorEnabled="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/items_counter_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_name_edit_layout">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/minus_count_button"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="@drawable/minus_button_gradient_background"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:backgroundTint="@null"
-            app:srcCompat="@drawable/ic_minus_24" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/tap_line"
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/second_main"
+            app:cardCornerRadius="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/items_count_text_view"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:ellipsize="end"
+            android:id="@+id/title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-thin"
             android:gravity="center"
-            android:lines="1"
-            android:singleLine="true"
-            android:text="1"
+            android:text="Заполните поля"
             android:textColor="@color/second_main"
-            android:textSize="48sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="900" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/plus_count_button"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="@drawable/gradient_background"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:backgroundTint="@null"
-            app:srcCompat="@drawable/ic_plus_24" />
-
-    </LinearLayout>
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="16dp"
-        android:foregroundGravity="center"
-        android:stepSize="100"
-        android:valueFrom="0"
-        android:valueTo="1000"
-        app:haloColor="@color/main_color"
-        app:labelBehavior="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/items_counter_layout"
-        app:thumbColor="@color/main_color"
-        app:thumbRadius="15dp"
-        app:tickColorActive="@color/second_main"
-        app:trackColorActive="@color/main_color"
-        app:trackColorInactive="@color/light_gray"
-        app:trackHeight="10dp"
-        tools:value="300" />
-
-    <LinearLayout
-        android:id="@+id/units_and_cost_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slider">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tap_line" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/spinner"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-thin"
-            android:hint="Единица измерения"
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu"
-            app:boxStrokeColor="@color/main_color"
-            app:hintTextColor="@color/main_color">
-
-            <AutoCompleteTextView
-                android:id="@+id/drop_down_auto_complete"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="center"
-                android:inputType="none"
-                android:text="ШТ"
-                android:textColor="@color/second_main"
-                android:textStyle="bold" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_cost_edit_layout"
+            android:id="@+id/item_name_edit_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-thin"
-            android:hint="Стоимость ₽"
+            android:hint="Введите название"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:boxStrokeColor="@color/main_color"
             app:counterEnabled="true"
-            app:counterMaxLength="6"
+            app:counterMaxLength="15"
             app:errorEnabled="true"
-            app:hintTextColor="@color/main_color">
+            app:hintTextColor="@color/drop_down"
+            app:layout_constraintTop_toBottomOf="@id/title_text_view">
 
             <AutoCompleteTextView
-                android:id="@+id/item_cost_edit_text"
+                android:id="@+id/item_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:completionThreshold="1"
                 android:fontFamily="sans-serif-thin"
                 android:imeOptions="actionNext"
-                android:inputType="number"
-                android:maxLength="6"
+                android:inputType="textNoSuggestions|textCapSentences|textVisiblePassword"
+                android:maxLength="15"
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:errorEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/items_counter_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_name_edit_layout">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/vertical_gradient_background"
-        android:fontFamily="sans-serif-thin"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="ДОБАВИТЬ"
-        android:textColor="@color/second_main"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/units_and_cost_layout" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/minus_count_button"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:background="@drawable/minus_button_gradient_background"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:backgroundTint="@null"
+                app:srcCompat="@drawable/ic_minus_24" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/items_count_text_view"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textColor="@color/second_main"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                tools:text="900" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/plus_count_button"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient_background"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:backgroundTint="@null"
+                app:srcCompat="@drawable/ic_plus_24" />
+
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:foregroundGravity="center"
+            android:stepSize="100"
+            android:valueFrom="0"
+            android:valueTo="1000"
+            app:haloColor="@color/main_color"
+            app:labelBehavior="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/items_counter_layout"
+            app:thumbColor="@color/main_color"
+            app:thumbRadius="15dp"
+            app:tickColorActive="@color/second_main"
+            app:trackColorActive="@color/main_color"
+            app:trackColorInactive="@color/light_gray"
+            app:trackHeight="10dp"
+            tools:value="300" />
+
+        <LinearLayout
+            android:id="@+id/units_and_cost_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-thin"
+                android:hint="Единица измерения"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu"
+                app:boxStrokeColor="@color/main_color"
+                app:hintTextColor="@color/drop_down">
+
+                <AutoCompleteTextView
+                    android:id="@+id/drop_down_auto_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="ШТ"
+                    android:textColor="@color/second_main"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/item_cost_edit_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-thin"
+                android:hint="Стоимость ₽"
+                android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                app:boxStrokeColor="@color/main_color"
+                app:counterEnabled="true"
+                app:counterMaxLength="6"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/drop_down">
+
+                <AutoCompleteTextView
+                    android:id="@+id/item_cost_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:completionThreshold="1"
+                    android:fontFamily="sans-serif-thin"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:errorEnabled="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/vertical_gradient_background"
+            android:fontFamily="sans-serif-thin"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:text="ДОБАВИТЬ"
+            android:textColor="@color/second_main"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/units_and_cost_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

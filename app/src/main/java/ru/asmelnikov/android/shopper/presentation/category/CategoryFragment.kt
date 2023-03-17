@@ -9,14 +9,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_category.floating_action_button
-import kotlinx.android.synthetic.main.fragment_category.recycler_view
+import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
