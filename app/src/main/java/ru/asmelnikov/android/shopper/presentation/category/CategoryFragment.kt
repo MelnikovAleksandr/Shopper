@@ -1,5 +1,6 @@
 package ru.asmelnikov.android.shopper.presentation.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +19,8 @@ import kotlinx.android.synthetic.main.fragment_category.*
 import ru.asmelnikov.android.shopper.R
 import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
-import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
+
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
@@ -30,8 +31,6 @@ class CategoryFragment : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
 
     private val viewModel: CategoryViewModel by viewModels()
-
-    private val itemsViewModel: ItemsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +46,7 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
 
-        itemsViewModel.allItems.observe(this.viewLifecycleOwner) { items ->
+        viewModel.allItems.observe(this.viewLifecycleOwner) { items ->
             binding.apply {
                 var totalPriceValue = 0
                 items.map { item ->
@@ -112,10 +111,12 @@ class CategoryFragment : Fragment() {
         builder.setIcon(R.drawable.delete_ic)
         builder.setPositiveButton("Да") { _, _ ->
             viewModel.deleteCategory(category)
-            Snackbar.make(requireView(), "Удалено", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
+            Snackbar.make(requireView(), "Удалено", Snackbar.LENGTH_SHORT)
+                .setAnchorView(floating_action_button).show()
         }
         builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT).setAnchorView(floating_action_button).show()
+            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT)
+                .setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
             categoryAdapter.notifyItemChanged(position)
@@ -142,6 +143,32 @@ class CategoryFragment : Fragment() {
 
             override fun onCategoryDelete(category: Category) {
                 showDeleteDialog(categoryAdapter.itemCount, category)
+            }
+
+            override fun onSharedList(category: Category) {
+                viewModel.getAllItemsByCategory(category).observe(viewLifecycleOwner) { items ->
+                    Intent(Intent.ACTION_SEND).apply {
+
+                        val itemsListString =
+                            "${category.name}:\n " + items.map { "${it.name} - ${it.count} ${it.units.lowercase()}\n" }
+
+
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT,
+                            itemsListString.replace("\\[".toRegex(), "")
+                                .replace("]".toRegex(), "")
+                        )
+                        putExtra(
+                            Intent.EXTRA_SUBJECT,
+                            "Список покупок : ${category.name}"
+                        )
+                    }.also { intent ->
+                        val chooseIntent = Intent.createChooser(
+                            intent, "Поделиться списком покупок"
+                        )
+                        startActivity(chooseIntent)
+                    }
+                }
             }
 
         })

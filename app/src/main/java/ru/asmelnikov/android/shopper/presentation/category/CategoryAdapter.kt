@@ -83,6 +83,10 @@ class CategoryAdapter(private val categoryActionListener: CategoryActionListener
                 categoryActionListener.onEditProductList(category)
                 true
             }
+
+            shared_button.setOnClickListener {
+                categoryActionListener.onSharedList(category)
+            }
         }
     }
 
