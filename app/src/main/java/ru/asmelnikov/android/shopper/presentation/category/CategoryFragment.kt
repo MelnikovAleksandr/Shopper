@@ -160,7 +160,7 @@ class CategoryFragment : Fragment() {
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,
-                            "${R.string.shared_list_title} ${category.name}"
+                            "${getString(R.string.shared_list_title)} ${category.name}"
                         )
                     }.also { intent ->
                         val chooseIntent = Intent.createChooser(
