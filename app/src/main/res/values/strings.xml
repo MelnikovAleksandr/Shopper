@@ -1,5 +1,35 @@
 <resources>
     <string name="app_name">Shopper</string>
+    <string name="create_shop_list">Create a new shopping list!</string>
+    <string name="enter_category_name">Enter name and choose category</string>
+    <string name="enter_name_hint">Enter name</string>
+    <string name="choose_category">Choose category</string>
+    <string name="create_hint_category">Products</string>
+    <string name="create_button">ADD</string>
+    <string name="title_name">Shopper - lists of goods</string>
+    <string name="info_text">General information</string>
+    <string name="lists">Lists:</string>
+    <string name="done_lists">Done:</string>
+    <string name="cost">Cost:</string>
+    <string name="edit_category_title">Enter a new name and/or select a new category</string>
+    <string name="edit_button">MODIFY</string>
+    <string name="edit_item_title">Change the fields</string>
+    <string name="first_count">1</string>
+    <string name="units_name">Unit of measurement</string>
+    <string name="cost_value">Cost $</string>
+    <string name="units_hint">PCS</string>
+    <string name="write_info_item">Fill in the fields</string>
+    <string name="currency">$</string>
+    <string name="delete_item">Delete an item</string>
+    <string name="delete_question">Are you sure you want to delete this item?</string>
+    <string name="yes_answer">Yes</string>
+    <string name="deleted">Deleted</string>
+    <string name="undo">Cancel</string>
+    <string name="undo_deleted">Cancellation of deletion</string>
+    <string name="shared_list">Share your shopping list</string>
+    <string name="shared_list_title">Shopping list :</string>
+    <string name="enter_all_fields">Please fill in all fields</string>
+    <string name="done">Done:</string>
 
     <string-array name="categories">
         <item>Drugstore</item>

@@ -13,7 +13,7 @@
         android:layout_marginTop="240dp"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
-        android:text="Создайте список покупок!"
+        android:text="@string/create_shop_list"
         android:textColor="@color/main_color"
         android:textSize="48sp"
         android:textStyle="bold"

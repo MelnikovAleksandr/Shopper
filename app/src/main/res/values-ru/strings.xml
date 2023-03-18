@@ -1,5 +1,35 @@
 <resources>
     <string name="app_name">Шоппер</string>
+    <string name="create_shop_list">Создайте список покупок!</string>
+    <string name="enter_category_name">Введите название и выберите категорию</string>
+    <string name="enter_name_hint">Введите название</string>
+    <string name="choose_category">Выберети категорию</string>
+    <string name="create_hint_category">Продукты</string>
+    <string name="create_button">ДОБАВИТЬ</string>
+    <string name="title_name">Шоппер - списки покупок</string>
+    <string name="info_text">Общая информация</string>
+    <string name="lists">Списки:</string>
+    <string name="done_lists">Закончены:</string>
+    <string name="cost">Стоимость:</string>
+    <string name="edit_category_title">Введите новое название и (или) выберите новую категорию</string>
+    <string name="edit_button">ИЗМЕНИТЬ</string>
+    <string name="edit_item_title">Измените поля</string>
+    <string name="first_count">1</string>
+    <string name="units_name">Единица измерения</string>
+    <string name="cost_value">Стоимость ₽</string>
+    <string name="units_hint">ШТ</string>
+    <string name="write_info_item">Заполните поля</string>
+    <string name="currency">₽</string>
+    <string name="delete_item">Удалить элемент</string>
+    <string name="delete_question">Вы уверены, что хотите удалить этот элемент?</string>
+    <string name="yes_answer">Да</string>
+    <string name="deleted">Удалено</string>
+    <string name="undo">Отмена</string>
+    <string name="undo_deleted">Отмена удаления</string>
+    <string name="shared_list">Поделиться списком покупок</string>
+    <string name="shared_list_title">Список покупок :</string>
+    <string name="enter_all_fields">Пожалуйста заполните все поля</string>
+    <string name="done">Выполнено:</string>
 
     <string-array name="categories">
         <item>Аптека</item>

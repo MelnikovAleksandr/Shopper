@@ -21,7 +21,6 @@ import ru.asmelnikov.android.shopper.databinding.FragmentCategoryBinding
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.utils.SwipeToDelete
 
-
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
 
@@ -52,7 +51,7 @@ class CategoryFragment : Fragment() {
                 items.map { item ->
                     totalPriceValue += item.price
                 }
-                totalPrice.text = "$totalPriceValue ₽"
+                totalPrice.text = "$totalPriceValue"
             }
         }
 
@@ -106,16 +105,16 @@ class CategoryFragment : Fragment() {
 
     private fun showDeleteDialog(position: Int, category: Category) {
         val builder = AlertDialog.Builder(this.requireContext())
-        builder.setTitle("Удалить элемент")
-        builder.setMessage("Вы уверены, что хотите удалить этот элемент?")
+        builder.setTitle(getString(R.string.delete_item))
+        builder.setMessage(getString(R.string.delete_question))
         builder.setIcon(R.drawable.delete_ic)
-        builder.setPositiveButton("Да") { _, _ ->
+        builder.setPositiveButton(getString(R.string.yes_answer)) { _, _ ->
             viewModel.deleteCategory(category)
-            Snackbar.make(requireView(), "Удалено", Snackbar.LENGTH_SHORT)
+            Snackbar.make(requireView(), getString(R.string.deleted), Snackbar.LENGTH_SHORT)
                 .setAnchorView(floating_action_button).show()
         }
-        builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT)
+        builder.setNegativeButton(getString(R.string.undo)) { _, _ ->
+            Snackbar.make(requireView(), getString(R.string.undo_deleted), Snackbar.LENGTH_SHORT)
                 .setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
@@ -153,18 +152,19 @@ class CategoryFragment : Fragment() {
                             "${category.name}:\n " + items.map { "${it.name} - ${it.count} ${it.units.lowercase()}\n" }
 
                         type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT,
+                        putExtra(
+                            Intent.EXTRA_TEXT,
                             itemsListString.replace("\\[".toRegex(), "")
                                 .replace("]".toRegex(), "")
                                 .replace(",".toRegex(), "")
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,
-                            "Список покупок : ${category.name}"
+                            "${R.string.shared_list_title} ${category.name}"
                         )
                     }.also { intent ->
                         val chooseIntent = Intent.createChooser(
-                            intent, "Поделиться списком покупок"
+                            intent, getString(R.string.shared_list)
                         )
                         startActivity(chooseIntent)
                     }
