@@ -112,7 +112,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
     }
 
     private fun showErrorToast() {
-        Toast.makeText(context, "Пожалуйста заполните все поля", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.enter_all_fields), Toast.LENGTH_LONG).show()
     }
 
     private fun addItem(item: Item) {

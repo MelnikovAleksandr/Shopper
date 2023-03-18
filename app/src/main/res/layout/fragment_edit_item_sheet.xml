@@ -29,7 +29,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-thin"
             android:gravity="center"
-            android:text="Измените поля"
+            android:text="@string/edit_item_title"
             android:textColor="@color/second_main"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -45,7 +45,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-thin"
-            android:hint="Введите название"
+            android:hint="@string/enter_name_hint"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:boxStrokeColor="@color/main_color"
             app:counterEnabled="true"
@@ -66,7 +66,8 @@
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:errorEnabled="true" />
+                app:errorEnabled="true"
+                tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -101,7 +102,7 @@
                 android:gravity="center"
                 android:lines="1"
                 android:singleLine="true"
-                android:text="1"
+                android:text="@string/first_count"
                 android:textColor="@color/second_main"
                 android:textSize="48sp"
                 android:textStyle="bold"
@@ -149,6 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:baselineAligned="false"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +166,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-thin"
-                android:hint="Единица измерения"
+                android:hint="@string/units_name"
                 android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined.ExposedDropdownMenu"
                 app:boxStrokeColor="@color/main_color"
                 app:hintTextColor="@color/drop_down">
@@ -176,9 +178,10 @@
                     android:fontFamily="sans-serif-thin"
                     android:gravity="center"
                     android:inputType="none"
-                    android:text="ШТ"
+                    android:text="@string/units_hint"
                     android:textColor="@color/second_main"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -189,7 +192,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-thin"
-                android:hint="Стоимость ₽"
+                android:hint="@string/cost_value"
                 android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                 app:boxStrokeColor="@color/main_color"
                 app:counterEnabled="true"
@@ -209,7 +212,8 @@
                     android:paddingHorizontal="12dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    app:errorEnabled="true" />
+                    app:errorEnabled="true"
+                    tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -225,7 +229,7 @@
             android:background="@drawable/vertical_gradient_background"
             android:fontFamily="sans-serif-thin"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:text="ИЗМЕНИТЬ"
+            android:text="@string/edit_button"
             android:textColor="@color/second_main"
             android:textSize="24sp"
             android:textStyle="bold"

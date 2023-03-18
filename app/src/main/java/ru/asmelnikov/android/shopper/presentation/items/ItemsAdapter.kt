@@ -44,7 +44,7 @@ class ItemsAdapter(
 
             item_name_text_view.text = item.name
             item_count_text_view.text = item.count.toString()
-            item_cost_text_view.text = "${item.price} ₽"
+            item_cost_text_view.text = "${item.price}"
             item_units_text_view.text = item.units
             checkbox.isChecked = item.bought
 

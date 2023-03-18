@@ -58,7 +58,7 @@ class ItemsListFragment : Fragment() {
                 items.map { item ->
                     totalPrice += item.price
                 }
-                costTextView.text = "$totalPrice ₽"
+                costTextView.text = "$totalPrice"
                 allCheckBox.isChecked =
                     navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0
 
@@ -150,16 +150,16 @@ class ItemsListFragment : Fragment() {
 
     private fun showDeleteDialog(position: Int, item: Item) {
         val builder = AlertDialog.Builder(this.requireContext())
-        builder.setTitle("Удалить элемент")
-        builder.setMessage("Вы уверены, что хотите удалить этот элемент?")
+        builder.setTitle(getString(R.string.delete_item))
+        builder.setMessage(R.string.delete_question)
         builder.setIcon(R.drawable.delete_ic)
-        builder.setPositiveButton("Да") { _, _ ->
+        builder.setPositiveButton(getString(R.string.yes_answer)) { _, _ ->
             viewModel.deleteItemOnSwipe(item, navArgs.category)
-            Snackbar.make(requireView(), "Успешно удалено", Snackbar.LENGTH_SHORT)
+            Snackbar.make(requireView(), getString(R.string.deleted), Snackbar.LENGTH_SHORT)
                 .setAnchorView(floating_action_button).show()
         }
-        builder.setNegativeButton("Отмена") { _, _ ->
-            Snackbar.make(requireView(), "Отмена удаления", Snackbar.LENGTH_SHORT)
+        builder.setNegativeButton(getString(R.string.undo)) { _, _ ->
+            Snackbar.make(requireView(), getString(R.string.undo_deleted), Snackbar.LENGTH_SHORT)
                 .setAnchorView(floating_action_button).show()
         }
         builder.setOnDismissListener {
@@ -206,9 +206,9 @@ class ItemsListFragment : Fragment() {
                 val itemDelete = itemsAdapter.differ.currentList[viewHolder.adapterPosition]
                 viewModel.deleteItemOnSwipe(itemDelete, navArgs.category)
                 view?.let {
-                    Snackbar.make(it, "Удалено", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(it, getString(R.string.deleted), Snackbar.LENGTH_SHORT)
                         .setAnchorView(floating_action_button)
-                        .setAction("Отмена") {
+                        .setAction(getString(R.string.undo)) {
                             viewModel.undoDeletedItem(itemDelete, navArgs.category)
                         }
                         .show()
