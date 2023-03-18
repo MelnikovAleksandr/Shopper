@@ -59,6 +59,7 @@ class ItemsListFragment : Fragment() {
                     totalPrice += item.price
                 }
                 costTextView.text = "$totalPrice"
+                allCheckBox.isEnabled = navArgs.category.allItems != 0
                 allCheckBox.isChecked =
                     navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0
 

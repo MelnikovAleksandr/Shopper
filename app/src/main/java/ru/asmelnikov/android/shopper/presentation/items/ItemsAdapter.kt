@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -44,6 +45,8 @@ class ItemsAdapter(
 
             item_name_text_view.text = item.name
             item_count_text_view.text = item.count.toString()
+            item_cost_text_view.isVisible = item.price > 0
+            currency_text_view.isVisible = item.price > 0
             item_cost_text_view.text = "${item.price}"
             item_units_text_view.text = item.units
             checkbox.isChecked = item.bought
