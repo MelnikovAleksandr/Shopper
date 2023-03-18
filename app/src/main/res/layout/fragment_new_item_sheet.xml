@@ -62,7 +62,7 @@
                 android:completionThreshold="1"
                 android:fontFamily="sans-serif-thin"
                 android:imeOptions="actionNext"
-                android:inputType="textNoSuggestions|textCapSentences|textVisiblePassword"
+                android:inputType="textCapSentences"
                 android:maxLength="15"
                 android:paddingHorizontal="12dp"
                 android:textColor="@color/black"
