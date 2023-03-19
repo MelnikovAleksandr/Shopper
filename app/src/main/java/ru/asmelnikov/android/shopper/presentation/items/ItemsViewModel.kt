@@ -27,9 +27,6 @@ class ItemsViewModel @Inject constructor(
     val allItems: LiveData<List<Item>> =
         itemsUseCases.getAllItemsListUseCase().asLiveData()
 
-    val categoryList: LiveData<List<Category>> =
-        categoryUseCase.getCategoryListUseCase().asLiveData()
-
     val wordsList: LiveData<List<WordsForAutoComplete>> =
         wordsUseCases.getAllWordsUseCase().asLiveData()
 

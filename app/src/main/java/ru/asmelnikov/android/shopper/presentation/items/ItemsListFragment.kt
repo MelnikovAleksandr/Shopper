@@ -59,10 +59,10 @@ class ItemsListFragment : Fragment() {
                     totalPrice += item.price
                 }
                 costTextView.text = "$totalPrice"
+                //checkbox
                 allCheckBox.isEnabled = navArgs.category.allItems != 0
                 allCheckBox.isChecked =
                     navArgs.category.doneItems == navArgs.category.allItems && navArgs.category.allItems != 0
-
                 allCheckBox.setOnClickListener {
                     it?.apply { isEnabled = false; postDelayed({ isEnabled = true }, 400) }
                     if (all_check_box.isChecked) {
@@ -87,11 +87,7 @@ class ItemsListFragment : Fragment() {
                         }
                     }
                 }
-            }
-        }
 
-        viewModel.categoryList.observe(this.viewLifecycleOwner) {
-            binding.apply {
                 floatingActionButton.setOnClickListener {
                     val action =
                         ItemsListFragmentDirections.actionItemsListFragmentToAddNewItemSheet(
@@ -103,6 +99,7 @@ class ItemsListFragment : Fragment() {
                 categoryTextView.text = navArgs.category.name
                 categoryNameTextView.text = navArgs.category.category
                 itemsCount.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
+                //progress indicator
                 progressIndicator.max = navArgs.category.allItems
                 progressIndicator.progress = navArgs.category.doneItems
                 progressText.text = "${navArgs.category.doneItems}/${navArgs.category.allItems}"
@@ -135,6 +132,7 @@ class ItemsListFragment : Fragment() {
                 }
             }
         }
+
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 when (newState) {
