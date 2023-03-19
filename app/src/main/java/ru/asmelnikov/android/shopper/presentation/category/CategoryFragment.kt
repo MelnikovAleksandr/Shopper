@@ -146,28 +146,7 @@ class CategoryFragment : Fragment() {
 
             override fun onSharedList(category: Category) {
                 viewModel.getAllItemsByCategory(category).observe(viewLifecycleOwner) { items ->
-                    Intent(Intent.ACTION_SEND).apply {
-
-                        val itemsListString =
-                            "${category.name}:\n " + items.map { "${it.name} - ${it.count} ${it.units.lowercase()}\n" }
-
-                        type = "text/plain"
-                        putExtra(
-                            Intent.EXTRA_TEXT,
-                            itemsListString.replace("\\[".toRegex(), "")
-                                .replace("]".toRegex(), "")
-                                .replace(",".toRegex(), "")
-                        )
-                        putExtra(
-                            Intent.EXTRA_SUBJECT,
-                            "${getString(R.string.shared_list_title)} ${category.name}"
-                        )
-                    }.also { intent ->
-                        val chooseIntent = Intent.createChooser(
-                            intent, getString(R.string.shared_list)
-                        )
-                        startActivity(chooseIntent)
-                    }
+                    sharedText(items, category, requireContext())
                 }
             }
 

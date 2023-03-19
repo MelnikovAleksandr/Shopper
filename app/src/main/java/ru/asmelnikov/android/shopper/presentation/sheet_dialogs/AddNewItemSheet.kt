@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,7 +15,6 @@ import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.Item
 import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.presentation.items.ItemsViewModel
-import ru.asmelnikov.android.shopper.utils.WordsCompleterAdapter
 
 @AndroidEntryPoint
 class AddNewItemSheet : BottomSheetDialogFragment() {
@@ -85,7 +82,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
                         if (!wordsList.contains(word)) viewModel.insertNewWord(word)
 
                         if (nameItem.isEmpty() || countItem.isEmpty()) {
-                            showErrorToast()
+                            showErrorToast(requireContext())
                         } else {
                             costItem = costItem.ifEmpty { "0" }
                             val item = createItem(
@@ -105,14 +102,7 @@ class AddNewItemSheet : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        val categoriesDropDown = resources.getStringArray(R.array.units)
-        val arrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
-        binding.dropDownAutoComplete.setAdapter(arrayAdapter)
-    }
-
-    private fun showErrorToast() {
-        Toast.makeText(context, getString(R.string.enter_all_fields), Toast.LENGTH_LONG).show()
+        binding.dropDownAutoComplete.setAdapter(createArrayAdapterUnits(requireContext()))
     }
 
     private fun addItem(item: Item) {

@@ -1,4 +1,4 @@
-package ru.asmelnikov.android.shopper.utils
+package ru.asmelnikov.android.shopper.presentation.sheet_dialogs
 
 import android.content.Context
 import android.widget.ArrayAdapter

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,7 +13,6 @@ import ru.asmelnikov.android.shopper.databinding.FragmentEditCategorySheetBindin
 import ru.asmelnikov.android.shopper.domain.model.Category
 import ru.asmelnikov.android.shopper.domain.model.WordsForAutoComplete
 import ru.asmelnikov.android.shopper.presentation.category.CategoryViewModel
-import ru.asmelnikov.android.shopper.utils.WordsCompleterAdapter
 
 @AndroidEntryPoint
 class EditCategorySheet : BottomSheetDialogFragment() {
@@ -46,13 +43,10 @@ class EditCategorySheet : BottomSheetDialogFragment() {
             wordsList.let {
 
                 val adapter = WordsCompleterAdapter(requireContext(), wordsList)
-                val categoriesDropDown = resources.getStringArray(R.array.categories)
-                val arrayAdapter =
-                    ArrayAdapter(requireContext(), R.layout.dropdown_item, categoriesDropDown)
 
                 binding.apply {
                     dropDownAutoComplete.setText(args.category.category)
-                    dropDownAutoComplete.setAdapter(arrayAdapter)
+                    dropDownAutoComplete.setAdapter(createArrayAdapterCategories(requireContext()))
 
                     categoryNameEditText.setAdapter(adapter)
                     categoryNameEditText.setText(args.category.name)
@@ -65,7 +59,7 @@ class EditCategorySheet : BottomSheetDialogFragment() {
                         if (!wordsList.contains(word)) viewModel.insertNewWord(word)
 
                         if (nameCategory.isEmpty()) {
-                            showErrorToast()
+                            showErrorToast(requireContext())
                         } else {
                             val category = createCategory(args.category, nameCategory, categoryDrop)
                             addCategory(category)
@@ -74,10 +68,6 @@ class EditCategorySheet : BottomSheetDialogFragment() {
                 }
             }
         }
-    }
-
-    private fun showErrorToast() {
-        Toast.makeText(context, getString(R.string.enter_all_fields), Toast.LENGTH_SHORT).show()
     }
 
     private fun createCategory(
